@@ -11,6 +11,22 @@ class Login extends Component {
         }
     }
 
+    // Convert to 32bit integer 
+    stringToHash = (password) => { 
+                  
+        var hash = 0; 
+          
+        if (password.length == 0) return hash; 
+          
+        for (var i = 0; i < password.length; i++) { 
+            var char = password.charCodeAt(i); 
+            hash = ((hash << 5) - hash) + char; 
+            hash = hash & hash; 
+        } 
+          
+        return hash; 
+    } 
+
     validateEmail = (email) => {
         var validateRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return validateRegex.test(String(email).toLowerCase());
@@ -35,9 +51,10 @@ class Login extends Component {
         }
         else 
         {
-            alert(`${this.state.username} ${this.state.password}`);
+            var hashedPassword = this.stringToHash(this.state.password);
+            alert(`${this.state.username} ${this.state.password}` + " Hashed password: " + hashedPassword);
         }
-        
+
         event.preventDefault();
     }
 
