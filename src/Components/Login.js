@@ -11,6 +11,11 @@ class Login extends Component {
         }
     }
 
+    validateEmail = (email) => {
+        var validateRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return validateRegex.test(String(email).toLowerCase());
+    }
+
     handleUsernameChange = (event) => {
         this.setState({
             username: event.target.value
@@ -24,8 +29,16 @@ class Login extends Component {
     }
 
     handleFormSubmit = (event) => {
-        alert(`${this.state.username} ${this.state.password}`)
-        event.preventDefault()
+        if (!this.validateEmail(this.state.username))
+        {
+            alert("Enter a correct format email!");
+        }
+        else 
+        {
+            alert(`${this.state.username} ${this.state.password}`);
+        }
+        
+        event.preventDefault();
     }
 
     render() {
