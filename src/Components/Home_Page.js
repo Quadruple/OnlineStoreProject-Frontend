@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-
-
-import '../StyleSheets/style.css'
+import '../style.css'
+import '../assets/font-awesome/css/font-awesome.css'
+import '../assets/css/bootstrap.css'
+import Dimage from '../assets/img/d.jpg'
+import Eimage from '../assets/img/e.jpg'
+import Fimage from '../assets/img/f.jpg'
 
 class Home_Page extends Component {
     constructor() {
@@ -51,7 +54,7 @@ class Home_Page extends Component {
                         <li class="span4">
                             <div class="thumbnail">
                                 <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-                                <a href="product_details.html"><img src="assets/img/d.jpg" alt=""></img></a>
+                                <a href="product_details.html"><img src={Dimage} alt=""></img></a>
                                 <div class="caption">
                                     <h5>Manicure & Pedicure</h5>
                                     <h4>
@@ -65,7 +68,7 @@ class Home_Page extends Component {
                         <li class="span4">
                             <div class="thumbnail">
                                 <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-                                <a href="product_details.html"><img src="assets/img/e.jpg" alt=""></img></a>
+                                <a href="product_details.html"><img src={Eimage} alt=""></img></a>
                                 <div class="caption">
                                     <h5>Manicure & Pedicure</h5>
                                     <h4>
@@ -79,7 +82,7 @@ class Home_Page extends Component {
                         <li class="span4">
                             <div class="thumbnail">
                                 <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-                                <a href="product_details.html"><img src="assets/img/f.jpg" alt="" /></a>
+                                <a href="product_details.html"><img src={Fimage} alt="" /></a>
                                 <div class="caption">
                                     <h5>Manicure & Pedicure</h5>
                                     <h4>
