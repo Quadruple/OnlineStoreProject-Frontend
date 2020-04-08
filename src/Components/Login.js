@@ -16,7 +16,7 @@ class Login extends Component {
                   
         var hash = 0; 
           
-        if (password.length == 0) return hash; 
+        if (password.length === 0) return hash; 
           
         for (var i = 0; i < password.length; i++) { 
             var char = password.charCodeAt(i); 
