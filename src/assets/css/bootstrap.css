@@ -1075,8 +1075,6 @@ label {
 
 select,
 textarea,
-input[type="text"],
-input[type="password"],
 input[type="datetime"],
 input[type="datetime-local"],
 input[type="date"],
@@ -1113,9 +1111,8 @@ textarea {
   height: auto;
 }
 
+
 textarea,
-input[type="text"],
-input[type="password"],
 input[type="datetime"],
 input[type="datetime-local"],
 input[type="date"],
@@ -1141,8 +1138,6 @@ input[type="color"],
 }
 
 textarea:focus,
-input[type="text"]:focus,
-input[type="password"]:focus,
 input[type="datetime"]:focus,
 input[type="datetime-local"]:focus,
 input[type="date"]:focus,
