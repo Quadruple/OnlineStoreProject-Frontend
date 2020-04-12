@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 import '../StyleSheets/main.css'
 import '../StyleSheets/util.css'
+import AuthService from '../services/auth.service';
 
 class Login extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props);
+
+        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+
         this.state = {
             username: '',
             password: ''
-        }
+        };
     }
 
+    /*
     // Convert to 32bit integer 
     stringToHash = (password) => { 
                   
@@ -26,6 +32,7 @@ class Login extends Component {
           
         return hash; 
     } 
+    */
 
     validateEmail = (email) => {
         var validateRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -45,17 +52,24 @@ class Login extends Component {
     }
 
     handleFormSubmit = (event) => {
-        if (!this.validateEmail(this.state.username))
-        {
-            alert("Enter a correct format email!");
-        }
-        else 
-        {
-            var hashedPassword = this.stringToHash(this.state.password);
-            alert(`${this.state.username} ${this.state.password}` + " Hashed password: " + hashedPassword);
-        }
-
         event.preventDefault();
+
+        AuthService.login(this.state.username, this.state.password).then(
+            () => {
+                alert("User login is successful.");
+                this.props.history.push("/home");
+                window.location.reload();
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                alert(resMessage)
+            }
+        );
     }
 
     render() {
@@ -96,7 +110,7 @@ class Login extends Component {
 
                             <div class="text-center p-t-12">
                                 <span class="txt1">
-                                    Forgot 
+                                    Forgot
 						        </span>
                                 <a class="txt2" href="#">
                                     Username / Password?

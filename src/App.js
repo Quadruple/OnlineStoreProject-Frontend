@@ -1,22 +1,17 @@
 import React from 'react';
-import Login from './Components/Login'
-import Home_Page from './Components/Home_Page'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import Login from './Components/Login';
+import Home_Page from './Components/Home_Page';
+import { Router, Switch, Route, Link } from 'react-router-dom';
 import SignUp from './Components/SignUp';
+import history from './history';
 
 function App() {
   return (
-    <Router>
+    <Router history={history}>
       <Switch>
-        <Route exact path="/">
-          <Home_Page></Home_Page>
-        </Route>
-        <Route exact path="/login">
-          <Login></Login>
-        </Route>
-        <Route exact path="/signup">
-          <SignUp></SignUp>
-        </Route>
+        <Route path="/" exact component={Login}></Route>
+        <Route path="/home" exact component={Home_Page}></Route>
+        <Route path="/signup" exact component={SignUp}></Route>
       </Switch>
     </Router>
   );
