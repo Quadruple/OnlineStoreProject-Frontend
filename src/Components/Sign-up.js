@@ -80,7 +80,7 @@ class Sign_up extends Component {
 
                         <form class="login100-form validate-form" onSubmit={this.handleFormSubmit}>
                             <span class="login100-form-title">
-                                Member Sign_up
+                                Sign Up
 					        </span>
 
                             <div class="wrap-input100 validate-input" >

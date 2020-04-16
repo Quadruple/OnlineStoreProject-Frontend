@@ -33,7 +33,6 @@ class Home_Page extends Component {
                         <div class="nav-collapse">
                             <ul class="nav">
                                 <li class="active"><a href="index.html">Home	</a></li>
-
                                 <form action="#" class="navbar-search pull-left">
                                     <input type="text" placeholder="Search" class="search-query span2"></input>
                                 </form>
@@ -44,6 +43,25 @@ class Home_Page extends Component {
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div id="sidebar" class="span3" style={{height:600, width:150 }}>
+                    <div class="well well-small">
+                    <div align="left" ><b>Catagories:</b></div>                      
+                        <ul class="nav nav-list">
+
+                            <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 2</a></li>
+                            <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 3</a></li>
+                            <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 4</a></li>
+                            <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 5</a></li>
+                            <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 6</a></li>
+                            <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 7</a></li>
+                            <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 8</a></li>
+                            <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 9</a></li>
+                            <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 10</a></li>
+                        </ul>
+                    </div>
+                </div>
+               
 
 
             <div class="well well-small">
@@ -95,6 +113,7 @@ class Home_Page extends Component {
                         </li>
                     </ul>
                 </div>
+            </div>
             </div>
         </div>
         )
