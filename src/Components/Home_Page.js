@@ -7,6 +7,7 @@ import Eimage from '../assets/img/e.jpg';
 import Fimage from '../assets/img/f.jpg';
 import "../services/products.service";
 import ProductsService from '../services/products.service';
+import Category from './Category'
 
 class Home_Page extends Component {
     constructor(props) {
@@ -76,17 +77,8 @@ class Home_Page extends Component {
                     <div id="sidebar" class="span3" style={{ height: 600, width: 150 }}>
                         <div class="well well-small">
                             <div align="left" ><b>Catagories:</b></div>
-                            <ul class="nav nav-list">
-
-                                <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 2</a></li>
-                                <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 3</a></li>
-                                <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 4</a></li>
-                                <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 5</a></li>
-                                <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 6</a></li>
-                                <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 7</a></li>
-                                <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 8</a></li>
-                                <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 9</a></li>
-                                <li><a align="left" href="products.html"><span class="icon-chevron-right"></span>Catagory 10</a></li>
+                            <ul class="nav nav-list" id="insertCategories">
+                                <Category></Category>
                             </ul>
                         </div>
                     </div>
