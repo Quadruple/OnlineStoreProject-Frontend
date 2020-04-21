@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import '../style.css';
 import '../assets/font-awesome/css/font-awesome.css';
 import '../assets/css/bootstrap.css';
-import Dimage from '../assets/img/d.jpg';
-import Eimage from '../assets/img/e.jpg';
-import Fimage from '../assets/img/f.jpg';
 import "../services/products.service";
 import ProductsService from '../services/products.service';
 import Category from './Category'
+import CoffeeMachineObjects from './CoffeeMachineObjects'
 
 class Home_Page extends Component {
     constructor(props) {
@@ -87,48 +85,7 @@ class Home_Page extends Component {
                         <hr class="soften" />
                         <div class="row-fluid">
                             <ul class="thumbnails">
-                                <li class="span4">
-                                    <div class="thumbnail">
-                                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-                                        <a href="product_details.html"><img src={Dimage} alt=""></img></a>
-                                        <div class="caption">
-                                            <h5>Manicure & Pedicure</h5>
-                                            <h4>
-                                                <a class="defaultBtn" href="product_details.html" title="Click to view"><span class="icon-zoom-in"></span></a>
-                                                <a class="shopBtn" href="#" title="add to cart"><span class="icon-plus"></span></a>
-                                                <span class="pull-right">$22.00</span>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="span4">
-                                    <div class="thumbnail">
-                                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-                                        <a href="product_details.html"><img src={Eimage} alt=""></img></a>
-                                        <div class="caption">
-                                            <h5>Manicure & Pedicure</h5>
-                                            <h4>
-                                                <a class="defaultBtn" href="product_details.html" title="Click to view"><span class="icon-zoom-in"></span></a>
-                                                <a class="shopBtn" href="#" title="add to cart"><span class="icon-plus"></span></a>
-                                                <span class="pull-right">$22.00</span>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="span4">
-                                    <div class="thumbnail">
-                                        <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
-                                        <a href="product_details.html"><img src={Fimage} alt="" /></a>
-                                        <div class="caption">
-                                            <h5>Manicure & Pedicure</h5>
-                                            <h4>
-                                                <a class="defaultBtn" href="product_details.html" title="Click to view"><span class="icon-zoom-in"></span></a>
-                                                <a class="shopBtn" href="#" title="add to cart"><span class="icon-plus"></span></a>
-                                                <span class="pull-right">$22.00</span>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </li>
+                                <CoffeeMachineObjects></CoffeeMachineObjects>
                             </ul>
                         </div>
                     </div>
