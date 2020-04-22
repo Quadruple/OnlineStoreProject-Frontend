@@ -87,7 +87,7 @@ class Login extends Component {
 					        </span>
 
                             <div class="wrap-input100 validate-input" >
-                                <input class="input100" type="text" name="email" placeholder="Email" onChange={this.handleUsernameChange}></input>
+                                <input class="input100" type="text" name="email" placeholder="Username" onChange={this.handleUsernameChange}></input>
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
