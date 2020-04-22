@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../StyleSheets/main.css'
 import '../StyleSheets/util.css'
+import AuthService from '../services/auth.service';
 
 class Sign_up extends Component {
     constructor() {
@@ -60,14 +61,35 @@ class Sign_up extends Component {
 {
             if( this.passwordcheck(this.state.password,this.state.password2))
             {
-            alert(`${this.state.username} ${this.state.password}` );
-            }
+
+            AuthService.register(this.state.username, this.state.email,this.state.password).then(
+                () => {
+                    alert("User register successfull");
+                    this.props.history.push("/login");
+                    window.location.reload();
+                },
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                    alert(resMessage)
+                }
+            );
+
+
+            
+        }
             else{alert("Passwords don't match");}
 
         }
 
         event.preventDefault();
     }
+
+
 
     render() {
         return (
