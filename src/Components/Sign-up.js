@@ -8,9 +8,11 @@ class Sign_up extends Component {
         super()
         this.state = {
             username: '',
-            email:'',
+            email: '',
             password: '',
-            password2: ''
+            password2: '',
+            message: '',
+            successful: false
         }
     }
 
@@ -21,11 +23,9 @@ class Sign_up extends Component {
         var validateRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return validateRegex.test(String(email).toLowerCase());
     }
-    passwordcheck=(password,password2)=>
-    {
-        if(password==password2)
-        {return true}
-        else{return false}
+    passwordcheck = (password, password2) => {
+        if (password == password2) { return true }
+        else { return false }
 
 
     }
@@ -53,36 +53,50 @@ class Sign_up extends Component {
     }
 
     handleFormSubmit = (event) => {
-        if (!this.validateEmail(this.state.email))
-        {
+        if (!this.validateEmail(this.state.email)) {
             alert("Enter a correct format email!");
         }
-        else 
-{
-            if( this.passwordcheck(this.state.password,this.state.password2))
-            {
+        else {
+            if (this.passwordcheck(this.state.password, this.state.password2)) {
 
-            AuthService.register(this.state.username, this.state.email,this.state.password).then(
-                () => {
-                    alert("User register successfull");
-                    this.props.history.push("/login");
-                    window.location.reload();
-                },
-                error => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-                    alert(resMessage)
-                }
-            );
+                AuthService.register(
+                    this.state.username,
+                    this.state.email,
+                    this.state.password
+                ).then(
+                    response => {
+                        this.setState({
+                            message: response.data.message,
+                            successful: true
+                        });
+                    },
+                    error => {
+                        const resMessage =
+                            (error.response &&
+                                error.response.data &&
+                                error.response.data.message) ||
+                            error.message ||
+                            error.toString();
 
-
-            
-        }
-            else{alert("Passwords don't match");}
+                        this.setState({
+                            successful: false,
+                            message: resMessage
+                        });
+                    }
+                ).then(
+                    () => {
+                        if (this.state.successful) {
+                            alert("Signed up successfully!");
+                            this.props.history.push("/");
+                            window.location.reload();
+                        }
+                        else {
+                            alert(this.state.message);
+                        }
+                    }
+                );
+            }
+            else { alert("Passwords don't match"); }
 
         }
 
@@ -106,7 +120,7 @@ class Sign_up extends Component {
 					        </span>
 
                             <div class="wrap-input100 validate-input" >
-                                <input class="input100" type="text" name="username" placeholder="Username" onChange={this.handleEmailChange}></input>
+                                <input class="input100" type="text" name="username" placeholder="Username" onChange={this.handleUsernameChange}></input>
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
                                     <i class="fa fa-user" aria-hidden="true"></i>
