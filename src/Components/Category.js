@@ -3,11 +3,7 @@ import CategoryServices from '../services/categories.service'
 
 class Category extends Component {
     componentDidMount()
-    {
-        this.setState({
-            categories: ["Simbo", "Philips", "Capsules", "Renderers"]
-        });
-        /*
+    { 
         CategoryServices.fetchAllCategories().then(
             response => {
                 this.setState({
@@ -23,7 +19,7 @@ class Category extends Component {
                 });
             }
         );
-        */
+        
     }
 
     constructor(props) {
@@ -45,7 +41,7 @@ class Category extends Component {
         return (
             <div>
                 {this.state.categories.map((item, index) => (
-                    <li><a align="left" onClick={() => this.printCategory(item)} ><span class="icon-chevron-right"></span>{item}</a></li>
+                    <li><a align="left" onClick={() => this.printCategory(item)} ><span class="icon-chevron-right"></span>{item.categoryName}</a></li>
                 ))}
             </div>
         )
