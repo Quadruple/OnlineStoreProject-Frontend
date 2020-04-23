@@ -70,23 +70,6 @@ class Product_Details extends Component {
                         <h3><a class="btn btn-mini pull-right" href="products.html" title="View more">VIew More<span class="icon-plus"></span></a> Product Details  </h3>
                         <hr class="soften" />
                         <div class="row-fluid">
-                            <div class="span5">
-                                <div id="myCarousel" class="carousel slide cntr">
-                                    <div class="carousel-inner">
-                                        <div class="item active">
-                                            <a href="#"> <img src="assets/img/a.jpg" alt=""></img></a>
-                                        </div>
-                                        <div class="item">
-                                            <a href="#"> <img src="assets/img/b.jpg" alt="" ></img></a>
-                                        </div>
-                                        <div class="item">
-                                            <a href="#"> <img src="assets/img/e.jpg" alt=""></img></a>
-                                        </div>
-                                    </div>
-                                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-                                    <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
-                                </div>
-                            </div>
                             <div class="span7">
                                 <h3>Name of the Item: {this.state.productInfo.name}</h3>
                                 <hr class="soft" />
