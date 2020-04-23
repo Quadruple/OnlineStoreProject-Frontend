@@ -8,14 +8,21 @@ import Category from './Category'
 import CoffeeMachineObjects from './CoffeeMachineObjects'
 
 class Product_Details extends Component {
+    componentDidMount() {
+        var productInfo = JSON.parse(localStorage.getItem('productinfo'));
+        console.log(productInfo);
+        this.setState({
+            productInfo: productInfo
+        });
+    }
+
     constructor(props) {
         super(props);
 
-        this.searchCoffeeMachines = this.searchCoffeeMachines.bind(this);
-
         this.state = {
             searchString: "",
-            coffeeMachineResults: ""
+            coffeeMachineResults: "",
+            productInfo: []
         };
     }
 
@@ -23,27 +30,6 @@ class Product_Details extends Component {
         this.setState({
             searchString: event.target.value
         });
-    }
-
-    searchCoffeeMachines = (event) => {
-        event.preventDefault();
-
-        ProductsService.getRelatedCoffeeMachines(this.state.searchString).then(
-            response => {
-                this.setState({
-                    coffeeMachineResults: response.data
-                });
-            },
-            error => {
-                this.setState({
-                    coffeeMachineResults:
-                        (error.response && error.response.data) ||
-                        error.message ||
-                        error.toString()
-                });
-            }
-        );
-        console.log(this.state.coffeeMachineResults);
     }
 
     render() {
@@ -81,12 +67,54 @@ class Product_Details extends Component {
                         </div>
                     </div>
                     <div class="well well-small">
-                        <h3><a class="btn btn-mini pull-right" href="products.html" title="View more">VIew More<span class="icon-plus"></span></a> Featured Products  </h3>
+                        <h3><a class="btn btn-mini pull-right" href="products.html" title="View more">VIew More<span class="icon-plus"></span></a> Product Details  </h3>
                         <hr class="soften" />
                         <div class="row-fluid">
-                            <ul class="thumbnails">
-                                <CoffeeMachineObjects></CoffeeMachineObjects>
-                            </ul>
+                            <div class="span5">
+                                <div id="myCarousel" class="carousel slide cntr">
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <a href="#"> <img src="assets/img/a.jpg" alt=""></img></a>
+                                        </div>
+                                        <div class="item">
+                                            <a href="#"> <img src="assets/img/b.jpg" alt="" ></img></a>
+                                        </div>
+                                        <div class="item">
+                                            <a href="#"> <img src="assets/img/e.jpg" alt=""></img></a>
+                                        </div>
+                                    </div>
+                                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                                    <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+                                </div>
+                            </div>
+                            <div class="span7">
+                                <h3>Name of the Item: {this.state.productInfo.name}</h3>
+                                <hr class="soft" />
+
+                                <form class="form-horizontal qtyFrm">
+                                    <div class="control-group">
+                                        <label class="control-label"><span>${this.state.productInfo.modelNumber}</span></label>
+                                        <div class="controls">
+                                            <label class="control-label"><span>Quantity:</span></label>
+                                            <input class="span1" style={{ width: 40 }} placeholder="1" size="16" type="text" value={1}></input>
+                                            <div class="input-append">
+                                                <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button"><span class="icon-remove"></span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label"><span>Description</span></label>
+                                        <div class="controls">
+                                            <label class="control-label"><span>{this.state.productInfo.description}</span></label>
+                                        </div>
+                                    </div>
+                                    <h4>{this.state.productInfo.quantityStocks} items in stock</h4>
+                                    <p></p>
+                                    <button type="submit" class="shopBtn"><span class=" icon-shopping-cart"></span> Add to cart</button>
+                                </form>
+
+                            </div>
                         </div>
                     </div>
                 </div>
