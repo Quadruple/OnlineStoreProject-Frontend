@@ -43,7 +43,6 @@ class Home_Page extends Component {
                 });
             }
         );
-        console.log(this.state.coffeeMachineResults);
     }
 
     render() {
