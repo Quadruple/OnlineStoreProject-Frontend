@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Dimage from '../assets/coffeemachinesforsale/delonghiIconaVintage.png';
-import Eimage from '../assets/coffeemachinesforsale/NespressoEssenzaMini.png';
-import Fimage from '../assets/coffeemachinesforsale/SiemensAutomaticMachine.png';
+import Dimage from '../assets/coffeemachinesforsale/delonghiIconaVintage.jpg';
+import Eimage from '../assets/coffeemachinesforsale/NespressoEssenzaMini.jpg';
+import Fimage from '../assets/coffeemachinesforsale/SiemensAutomaticMachine.jpg';
 import CartService from '../services/cart.service'
 
 class CartItems extends Component {

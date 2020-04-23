@@ -6,29 +6,11 @@ import "../services/products.service";
 import ProductsService from '../services/products.service';
 import Category from './Category'
 import CoffeeMachineObjects from './CoffeeMachineObjects'
+import ProductService from '../services/products.service'
 
 class Home_Page extends Component {
-    constructor(props) {
-        super(props);
-
-        this.searchCoffeeMachines = this.searchCoffeeMachines.bind(this);
-
-        this.state = {
-            searchString: "",
-            coffeeMachineResults: ""
-        };
-    }
-
-    handleSearchBarChange = (event) => {
-        this.setState({
-            searchString: event.target.value
-        });
-    }
-
-    searchCoffeeMachines = (event) => {
-        event.preventDefault();
-
-        ProductsService.getRelatedCoffeeMachines(this.state.searchString).then(
+    componentDidMount() {
+        ProductService.getAllCoffeeMachines().then(
             response => {
                 this.setState({
                     coffeeMachineResults: response.data
@@ -42,7 +24,57 @@ class Home_Page extends Component {
                         error.toString()
                 });
             }
+        ).then(
+            () => {
+                console.log(this.state.coffeeMachineResults);
+            }
         );
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.searchCoffeeMachines = this.searchCoffeeMachines.bind(this);
+
+        this.state = {
+            searchString: "",
+            coffeeMachineResults: []
+        };
+    }
+
+    handleSearchBarChange = (event) => {
+        this.setState({
+            searchString: event.target.value
+        });
+    }
+
+    searchCoffeeMachines = (event) => {
+        event.preventDefault();
+
+        if (!this.state.searchString) {
+            window.location.reload();
+        }
+        else {
+            ProductsService.getRelatedCoffeeMachines(this.state.searchString).then(
+                response => {
+                    this.setState({
+                        coffeeMachineResults: response.data
+                    });
+                },
+                error => {
+                    this.setState({
+                        coffeeMachineResults:
+                            (error.response && error.response.data) ||
+                            error.message ||
+                            error.toString()
+                    });
+                }
+            ).then(
+                () => {
+                    console.log(this.state.coffeeMachineResults);
+                }
+            );
+        }
     }
 
     render() {
@@ -71,7 +103,7 @@ class Home_Page extends Component {
                     </div>
                 </div>
                 <div class="row">
-                    <div id="sidebar" class="span3" style={{ height: 600, width: 150 }}>
+                    <div id="sidebar" class="span3" style={{ height: 800 }}>
                         <div class="well well-small">
                             <div align="left" ><b>Catagories:</b></div>
                             <ul class="nav nav-list" id="insertCategories">
@@ -84,7 +116,7 @@ class Home_Page extends Component {
                         <hr class="soften" />
                         <div class="row-fluid">
                             <ul class="thumbnails">
-                                <CoffeeMachineObjects></CoffeeMachineObjects>
+                                <CoffeeMachineObjects coffeemachineobjects={this.state.coffeeMachineResults}></CoffeeMachineObjects>
                             </ul>
                         </div>
                     </div>
