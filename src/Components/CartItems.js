@@ -98,8 +98,8 @@ class CartItems extends Component {
                     <tr>
                         <th>Product</th>
                         <th>Description</th>
-                        <th>	Ref. </th>
-                        <th>Avail.</th>
+                        <th>Distributor</th>
+                        <th>Warranty Status</th>
                         <th>Unit price</th>
                         <th>Qty </th>
                         <th>Total</th>
@@ -110,8 +110,8 @@ class CartItems extends Component {
                         <tr>
                             <div><td><img width="100" src={this.getProductPicture(item.id)} alt=""></img></td></div>
                             <td>{item.description}</td>
-                            <td> - </td>
-                            <td><span class="shopBtn"><span>{item.distributorInfo}</span></span> </td>
+                            <td> {item.distributorInfo} </td>
+                            <td><span class="shopBtn"><span>{item.warrantyStatus}</span></span> </td>
                             <td>{item.price}$</td>
                             <td>
                                 <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={1} readOnly></input>
@@ -122,10 +122,6 @@ class CartItems extends Component {
                             <td>{parseInt(1) * parseInt(item.price)}$</td>
                         </tr>
                     ))}
-                    <tr>
-                        <td colspan="6" class="alignR">Total Payment:	</td>
-                        <td> $448.42</td>
-                    </tr>
                 </tbody>
             </div>
         )
