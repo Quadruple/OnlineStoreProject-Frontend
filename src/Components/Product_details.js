@@ -23,7 +23,7 @@ class Product_Details extends Component {
             searchString: "",
             coffeeMachineResults: "",
             productInfo: []
-        };
+        };   
     }
 
     handleSearchBarChange = (event) => {
@@ -67,7 +67,7 @@ class Product_Details extends Component {
                         </div>
                     </div>
                     <div class="well well-small">
-                        <h3><a class="btn btn-mini pull-right" href="products.html" title="View more">VIew More<span class="icon-plus"></span></a> Product Details  </h3>
+                        <h3><a class="btn btn-mini pull-right" href="/cart" title="View more">Go To Cart<span class="icon-plus"></span></a> Product Details  </h3>
                         <hr class="soften" />
                         <div class="row-fluid">
                             <div class="span7">
@@ -81,7 +81,7 @@ class Product_Details extends Component {
                                             <label class="control-label"><span>Quantity:</span></label>
                                             <input class="span1" style={{ width: 40 }} placeholder="1" size="16" type="text" value={1}></input>
                                             <div class="input-append">
-                                                <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button"><span class="icon-remove"></span></button>
+                                                <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button>
                                             </div>
                                         </div>
                                     </div>

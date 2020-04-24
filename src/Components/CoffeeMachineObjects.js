@@ -65,6 +65,7 @@ class CoffeeMachineObjects extends Component {
         ).then(
             () => {
                 console.log(this.state.addToCartResult);
+                alert("Product added to cart successfully.");
             }
         );
     }
@@ -75,7 +76,7 @@ class CoffeeMachineObjects extends Component {
                 {this.props.coffeemachineobjects.map((item, index) => (
                     <li class="span4">
                         <div class="thumbnail">
-                            <a class="zoomTool" href="product_details.html" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
+                            <a class="zoomTool" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
                             <a href="product_details.html"><img src={this.getProductPicture(item.id)} alt=""></img></a>
                             <div class="caption">
                                 <h5>{item.name}</h5>

@@ -114,12 +114,12 @@ class CartItems extends Component {
                             <td><span class="shopBtn"><span>{item.distributorInfo}</span></span> </td>
                             <td>{item.price}$</td>
                             <td>
-                                <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={this.globalArray[index]} readOnly></input>
+                                <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={1} readOnly></input>
                                 <div class="input-append">
                                     <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button" ><span class="icon-remove"></span></button>
                                 </div>
                             </td>
-                            <td>{parseInt(this.globalArray[index]) * parseInt(item.price)}$</td>
+                            <td>{parseInt(1) * parseInt(item.price)}$</td>
                         </tr>
                     ))}
                     <tr>

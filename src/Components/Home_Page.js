@@ -77,6 +77,11 @@ class Home_Page extends Component {
         }
     }
 
+    redirectToCart = () => {
+        this.props.history.push("/cart");
+        window.location.reload();
+    }
+
     render() {
         return (
             <div >
@@ -105,14 +110,14 @@ class Home_Page extends Component {
                 <div class="row">
                     <div id="sidebar" class="span3" style={{ height: 800 }}>
                         <div class="well well-small">
-                            <div align="left" ><b>Catagories:</b></div>
+                            <div align="left" ><b>Categories:</b></div>
                             <ul class="nav nav-list" id="insertCategories">
                                 <Category></Category>
                             </ul>
                         </div>
                     </div>
                     <div class="well well-small">
-                        <h3><a class="btn btn-mini pull-right" href="products.html" title="View more">VIew More<span class="icon-plus"></span></a> Featured Products  </h3>
+                        <h3><a class="btn btn-mini pull-right" title="View more" onClick={() => {this.redirectToCart()}}>Go To Cart<span class="icon-plus"></span></a> Featured Products  </h3>
                         <hr class="soften" />
                         <div class="row-fluid">
                             <ul class="thumbnails">
