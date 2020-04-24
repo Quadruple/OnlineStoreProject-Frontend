@@ -5,6 +5,7 @@ import { Router, Switch, Route, Link } from 'react-router-dom';
 import history from './history';
 import Sign_up from './Components/Sign-up';
 import Cart from './Components/Cart'
+import ProductManager from './Components/ProductManagerPage'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/home" exact component={Home_Page}></Route>
         <Route path="/signup" exact component={Sign_up}></Route>
         <Route path="/cart" exact component={Cart}></Route>
+        <Route path="/ProductManager" exact component={ProductManager}></Route>        
       </Switch>
     </Router>
   );
