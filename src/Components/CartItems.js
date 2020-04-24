@@ -6,14 +6,10 @@ import CartService from '../services/cart.service'
 import AuthService from '../services/auth.service'
 
 class CartItems extends Component {
+
+    globalArray = [];
+
     componentDidMount() {
-        /*
-        this.setState({
-            cartitems: [["23956", "An amazing product from Berk", "Model", "Available", "50", "2", "1"],
-            ["20537", "An amazing product from Atakan", "Model", "Available", "55", "3", "2"],
-            ["99999", "Shit product", "Model", "Not available", "1200", "4", "3"]]
-        });
-        */
         var currentUser = AuthService.getCurrentUser();
         CartService.getCheckedOutItems(currentUser.id).then(
             response => {
@@ -35,24 +31,9 @@ class CartItems extends Component {
             }
         ).then(
             () => {
-                var resultQuantities = [];
-                this.state.cartitems.forEach(function (arrayItem) {
-                    resultQuantities.push(arrayItem.id);
+                this.state.cartitems.forEach(cartitem => {
+                    this.getQuantityOfProduct(cartitem.id)
                 });
-                this.setState({
-                    idArray: resultQuantities
-                });
-            }
-        ).then(
-            () => {
-                for(var i = 0; i < this.state.idArray.length; i++)
-                {
-                    console.log(i);
-                }
-            }
-        ).then(
-            () => {
-                console.log(this.state.quantity);
             }
         );
     }
@@ -63,8 +44,7 @@ class CartItems extends Component {
         this.state =
         {
             cartitems: [],
-            quantity: [],
-            idArray: []
+            quantity: []
         };
 
         this.getProductPicture = this.getProductPicture.bind(this);
@@ -107,7 +87,9 @@ class CartItems extends Component {
             }
         ).then(
             () => {
-                console.log(this.state.quantity);
+                console.log("QUANTITY", this.state.quantity);
+                this.globalArray.push(this.state.quantity[0].quantity);
+                console.log("Global", this.globalArray);
             }
         );
     }
@@ -135,29 +117,17 @@ class CartItems extends Component {
                             <td><span class="shopBtn"><span>{item.distributorInfo}</span></span> </td>
                             <td>{item.price}$</td>
                             <td>
-                                <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={6}></input>
+                                <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={this.globalArray[index]} readOnly></input>
                                 <div class="input-append">
                                     <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button"><span class="icon-remove"></span></button>
                                 </div>
                             </td>
-                            <td>{parseInt(1) * parseInt(item.price)}$</td>
+                            <td>{parseInt(this.globalArray[index]) * parseInt(item.price)}$</td>
                         </tr>
                     ))}
                     <tr>
-                        <td colspan="6" class="alignR">Total products:	</td>
+                        <td colspan="6" class="alignR">Total Payment:	</td>
                         <td> $448.42</td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="alignR">Total products:	</td>
-                        <td> $448.42</td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="alignR">Total products:	</td>
-                        <td> $448.42</td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="alignR">Total products:	</td>
-                        <td class="label label-primary"> $448.42</td>
                     </tr>
                 </tbody>
             </div>
