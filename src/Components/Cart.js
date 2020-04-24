@@ -9,10 +9,7 @@ class Cart extends Component {
         super(props);
     }
 
-
-
     render() {
-
         return (
             <div>
                 <div class="navbar">
@@ -44,7 +41,7 @@ class Cart extends Component {
                             <li class="active">Check Out</li>
                         </ul>
                         <div class="well well-small">
-                            <h1>Check Out <small class="pull-right"> 2 Items are in the cart </small></h1> 
+                            <h1>Check Out <small class="pull-right"> 2 Items are in the cart </small></h1>
                             <hr class="soften" />
 
                             <table class="table table-bordered table-condensed">
@@ -100,18 +97,10 @@ class Cart extends Component {
 
                         </div>
                     </div>
-                </div> </div>)
-
-
-
-
+                </div>
+            </div>
+        )
     }
-
-
-
-
-
-
 }
 
 

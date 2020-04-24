@@ -4,6 +4,8 @@ import nespresso from '../assets/coffeemachinesforsale/nespresso.jpg'
 import bialetti from '../assets/coffeemachinesforsale/bialetti.jpg'
 import cuisinart from '../assets/coffeemachinesforsale/cuisinart.jpg'
 import history from '../history'
+import cartService from '../services/cart.service'
+import authService from '../services/auth.service'
 
 class CoffeeMachineObjects extends Component {
     constructor(props) {
@@ -11,6 +13,11 @@ class CoffeeMachineObjects extends Component {
 
         this.getProductPicture = this.getProductPicture.bind(this);
         this.showProductDetails = this.showProductDetails.bind(this);
+        this.addSelectedProductToCart =this.addSelectedProductToCart.bind(this);
+
+        this.state = {
+            addToCartResult: []
+        }
     }
 
     getProductPicture = (pictureId) => {
@@ -37,6 +44,31 @@ class CoffeeMachineObjects extends Component {
         window.location.reload();
     }
 
+    addSelectedProductToCart = (index) => {
+        var currentUser = authService.getCurrentUser();
+        //console.log(currentUser.id);
+        //console.log(this.props.coffeemachineobjects[index].id);
+        cartService.addToCart(currentUser.id, this.props.coffeemachineobjects[index].id, "1").then(
+            response => {
+                this.setState({
+                    addToCartResult: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    addToCartResult:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log(this.state.addToCartResult);
+            }
+        );
+    }
+
     render() {
         return (
             <div>
@@ -49,7 +81,7 @@ class CoffeeMachineObjects extends Component {
                                 <h5>{item.name}</h5>
                                 <h4>
                                     <a class="defaultBtn" title="Click to see product details" onClick={() => this.showProductDetails(index)}><span class="icon-zoom-in"></span></a>
-                                    <a class="shopBtn" href="#" title="add to cart"><span class="icon-plus"></span></a>
+                                    <a class="shopBtn" title="add to cart"><span class="icon-plus" onClick={() => this.addSelectedProductToCart(index)}></span></a>
                                     <span class="pull-right">{item.modelNumber}$</span>
                                 </h4>
                             </div>
