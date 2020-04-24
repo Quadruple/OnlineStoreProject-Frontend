@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Dimage from '../assets/coffeemachinesforsale/delonghiIconaVintage.jpg';
-import Eimage from '../assets/coffeemachinesforsale/NespressoEssenzaMini.jpg';
-import Fimage from '../assets/coffeemachinesforsale/SiemensAutomaticMachine.jpg';
+import mrcoffee from '../assets/coffeemachinesforsale/mrcoffee.jpg'
+import nespresso from '../assets/coffeemachinesforsale/nespresso.jpg'
+import bialetti from '../assets/coffeemachinesforsale/bialetti.jpg'
+import cuisinart from '../assets/coffeemachinesforsale/cuisinart.jpg'
 import CartService from '../services/cart.service'
 import AuthService from '../services/auth.service'
 
@@ -48,24 +49,22 @@ class CartItems extends Component {
         };
 
         this.getProductPicture = this.getProductPicture.bind(this);
-        this.removeSelectedProduct = this.removeSelectedProduct.bind(this);
         this.getQuantityOfProduct = this.getQuantityOfProduct.bind(this);
-    }
-
-    removeSelectedProduct(row) {
-        this.state.cartitems.splice(row.rowIndex, 1);
     }
 
     getProductPicture = (pictureId) => {
 
         if (pictureId === 1) {
-            return Dimage;
+            return mrcoffee;
         }
         else if (pictureId === 2) {
-            return Eimage;
+            return cuisinart;
         }
         else if (pictureId === 3) {
-            return Fimage;
+            return nespresso;
+        }
+        else if (pictureId === 4) {
+            return bialetti;
         }
     }
 
@@ -87,9 +86,7 @@ class CartItems extends Component {
             }
         ).then(
             () => {
-                console.log("QUANTITY", this.state.quantity);
                 this.globalArray.push(this.state.quantity[0].quantity);
-                console.log("Global", this.globalArray);
             }
         );
     }
@@ -119,7 +116,7 @@ class CartItems extends Component {
                             <td>
                                 <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={this.globalArray[index]} readOnly></input>
                                 <div class="input-append">
-                                    <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button"><span class="icon-remove"></span></button>
+                                    <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button" ><span class="icon-remove"></span></button>
                                 </div>
                             </td>
                             <td>{parseInt(this.globalArray[index]) * parseInt(item.price)}$</td>
