@@ -4,7 +4,8 @@ import authHeader from './auth-header';
 const FETCH_CHECKEDOUT_ITEMS = "http://localhost:8080/api/test/fetchAllProductsInCarts/"; // LEARN FROM BACKEND
 const REMOVE_FROM_CART = "http://localhost:8080/api/removeFromCart/";
 const ADD_TO_CART = "http://localhost:8080/api/test/addToCart/";
-const FETCH_QUANTITY = "http://localhost:8080/api/test/fetchUserSelectsProducts/"
+const FETCH_QUANTITY = "http://localhost:8080/api/test/fetchUserSelectsProducts/";
+const DECREMENT_PRODUCT_QUANTITY_OF_USER = "http://localhost:8080/api/test/removeQuantityFromCart/";
 
 class CartService
 {
@@ -26,6 +27,11 @@ class CartService
     getUserQuantityOfProduct(userId, productId)
     {
         return axios.get(FETCH_QUANTITY + userId + "/" + productId, { headers: authHeader() });
+    }
+
+    decrementUserQuantityOfProduct(userId, productId)
+    {
+        return axios.post(DECREMENT_PRODUCT_QUANTITY_OF_USER + userId + "/" + productId, { headers: authHeader() });
     }
 }
 

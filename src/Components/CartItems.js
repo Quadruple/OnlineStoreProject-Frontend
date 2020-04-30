@@ -44,11 +44,13 @@ class CartItems extends Component {
         {
             cartitems: [],
             quantity: [],
-            quantityCollector: []
+            quantityCollector: [],
+            decrementResponse: []
         };
 
         this.getProductPicture = this.getProductPicture.bind(this);
         this.getQuantityOfProduct = this.getQuantityOfProduct.bind(this);
+        this.decrementQuantityofProduct = this.decrementQuantityofProduct.bind(this);
     }
 
     getProductPicture = (pictureId) => {
@@ -65,6 +67,33 @@ class CartItems extends Component {
         else if (pictureId === 4) {
             return bialetti;
         }
+    }
+
+    decrementQuantityofProduct = (productId) => {
+        var currentUser = AuthService.getCurrentUser();
+        CartService.decrementUserQuantityOfProduct(currentUser.id, productId).then(
+            response => {
+                this.setState({
+                    decrementResponse: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    decrementResponse:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log(this.state.decrementResponse);
+            }
+        ).then(
+            () => {
+                window.location.reload(false);
+            }
+        );
     }
 
     getQuantityOfProduct = (productId) => {
@@ -121,7 +150,7 @@ class CartItems extends Component {
                             <td>
                                 <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={this.state.quantityCollector[index]} readOnly></input>
                                 <div class="input-append">
-                                    <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button" ><span class="icon-remove"></span></button>
+                                    <button class="btn btn-mini" type="button" onClick={() => this.decrementQuantityofProduct(item.id)}>-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button" ><span class="icon-remove"></span></button>
                                 </div>
                             </td>
                             <td>{parseInt(this.state.quantityCollector[index]) * parseInt(item.price)}$</td>
