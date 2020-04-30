@@ -73,6 +73,7 @@ class CoffeeMachineObjects extends Component {
     render() {
         return (
             <div>
+                {console.log("Coffee Machine Objects: ", this.props.coffeemachineobjects)}
                 {this.props.coffeemachineobjects.map((item, index) => (
                     <li class="span4">
                         <div class="thumbnail">
@@ -83,7 +84,7 @@ class CoffeeMachineObjects extends Component {
                                 <h4>
                                     <a class="defaultBtn" title="Click to see product details" onClick={() => this.showProductDetails(index)}><span class="icon-zoom-in"></span></a>
                                     <a class="shopBtn" title="add to cart"><span class="icon-plus" onClick={() => this.addSelectedProductToCart(index)}></span></a>
-                                    <span class="pull-right">{item.modelNumber}$</span>
+                                    <span class="pull-right">{item.price}$</span>
                                 </h4>
                             </div>
                         </div>
