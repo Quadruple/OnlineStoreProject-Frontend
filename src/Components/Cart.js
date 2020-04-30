@@ -43,7 +43,7 @@ class Cart extends Component {
                         <div class="well well-small">
                             <h1>Check Out</h1>
                             <hr class="soften" />
-
+                            <CartItems></CartItems>
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>

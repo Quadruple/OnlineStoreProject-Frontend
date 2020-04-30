@@ -8,8 +8,6 @@ import AuthService from '../services/auth.service'
 
 class CartItems extends Component {
 
-    globalArray = [];
-
     componentDidMount() {
         var currentUser = AuthService.getCurrentUser();
         CartService.getCheckedOutItems(currentUser.id).then(
@@ -28,7 +26,7 @@ class CartItems extends Component {
             }
         ).then(
             () => {
-                console.log(this.state.cartitems);
+                console.log("cartitems", this.state.cartitems);
             }
         ).then(
             () => {
@@ -45,7 +43,8 @@ class CartItems extends Component {
         this.state =
         {
             cartitems: [],
-            quantity: []
+            quantity: [],
+            quantityCollector: []
         };
 
         this.getProductPicture = this.getProductPicture.bind(this);
@@ -86,7 +85,13 @@ class CartItems extends Component {
             }
         ).then(
             () => {
-                this.globalArray.push(this.state.quantity[0].quantity);
+                console.log(this.state.quantity);
+            }
+        ).then(
+            () => {
+                let beforeQuantities = [...this.state.quantityCollector]
+                beforeQuantities.push(this.state.quantity[0].quantity);
+                this.setState({quantityCollector: beforeQuantities});
             }
         );
     }
@@ -114,12 +119,12 @@ class CartItems extends Component {
                             <td><span class="shopBtn"><span>{item.warrantyStatus}</span></span> </td>
                             <td>{item.price}$</td>
                             <td>
-                                <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={1} readOnly></input>
+                                <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={this.state.quantityCollector[index]} readOnly></input>
                                 <div class="input-append">
                                     <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button" ><span class="icon-remove"></span></button>
                                 </div>
                             </td>
-                            <td>{parseInt(1) * parseInt(item.price)}$</td>
+                            <td>{parseInt(this.state.quantityCollector[index]) * parseInt(item.price)}$</td>
                         </tr>
                     ))}
                 </tbody>
