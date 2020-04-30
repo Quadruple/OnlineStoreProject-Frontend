@@ -6,6 +6,8 @@ import history from './history';
 import Sign_up from './Components/Sign-up';
 import Cart from './Components/Cart'
 import ProductDetails from './Components/Product_details'
+import ProductManager from './Components/ProductManagerPage'
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route path="/signup" exact component={Sign_up}></Route>
         <Route path="/cart" exact component={Cart}></Route>
         <Route path="/productdetails" exact component={ProductDetails}></Route>
+        <Route path="/ProductManager" exact component={ProductManager}></Route>     
       </Switch>
     </Router>
   );

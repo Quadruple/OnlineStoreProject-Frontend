@@ -44,9 +44,20 @@ class Cart extends Component {
                             <h1>Check Out</h1>
                             <hr class="soften" />
 
-                            <table class="table table-bordered table-condensed">
-                                <CartItems></CartItems>
-                            </table><br />
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <form class="form-inline">
+                                                <label style={{ width: 159 }}> VOUCHERS Code: </label>
+                                                <input type="text" class="input-medium" placeholder="CODE"></input>
+                                                <button type="submit" class="shopBtn"> ADD</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
 
 
                             <table class="table table-bordered">

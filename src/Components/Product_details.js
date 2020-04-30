@@ -70,6 +70,7 @@ class Product_Details extends Component {
                         <h3><a class="btn btn-mini pull-right" href="/cart" title="View more">Go To Cart<span class="icon-plus"></span></a> Product Details  </h3>
                         <hr class="soften" />
                         <div class="row-fluid">
+
                             <div class="span7">
                                 <h3>Name of the Item: {this.state.productInfo.name}</h3>
                                 <hr class="soft" />
