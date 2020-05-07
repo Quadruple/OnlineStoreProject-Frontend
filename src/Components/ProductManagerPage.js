@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import '../style.css';
 import '../assets/font-awesome/css/font-awesome.css';
 import '../assets/css/bootstrap.css';
 import "../services/products.service";
-import ProductsService from '../services/products.service';
-import Category from './Category'
-import CoffeeMachineObjects from './CoffeeMachineObjects'
+import ItemAdder from '../Components/itemadder';
+import ProductManaging from '../Components/ProductManaging';
+
 
 class ProductManagerPage extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class ProductManagerPage extends Component {
         this.state = {
             searchString: "",
 
+
         };
     }
 
@@ -24,6 +26,17 @@ class ProductManagerPage extends Component {
             searchString: event.target.value
         });
     }
+    handleMenu1= (event) =>{
+        var element=<ItemAdder></ItemAdder>;
+        ReactDOM.render(element, document.getElementById('forms'));
+
+    }
+    handleMenu2= (event) =>{
+        var element=<ProductManaging ></ProductManaging>;
+        
+        ReactDOM.render(element, document.getElementById('forms'));
+
+    }    
 
 
 
@@ -57,14 +70,13 @@ class ProductManagerPage extends Component {
                         <div class="well well-small">
                             <div align="left" ><b>Manager Menu</b></div><br></br>
                             <ul class="nav nav-list" id="insertCategories">
-                                <li>
-                                <a>Add New Product</a>
+                                <li onClick={this.handleMenu1}>
+                                <a >Add New Product</a>
+                                </li><br></br>
+                                <li onClick={this.handleMenu2}>
+                                <a >Manage Products </a>
                                 </li><br></br>
                                 <li>
-                                <a>Manage Quantitys </a>
-                                </li><br></br>
-                                <li>
-                                <a>User Management </a>
                                 </li><br></br>
                             </ul>
                         </div>
@@ -73,28 +85,7 @@ class ProductManagerPage extends Component {
                         <h3> Product Management </h3>
                         <hr class="soften" />
                         <div>Welcome Managet to your manage page.<br></br>In here you can:<br></br> add new products increase the quantity of existing item, Manage users setting</div>
-                        <div>
-                            <form>
-                                <h3>Item Addition Form</h3>
-                                <label for="id">ID:</label>
-                                <input type="text" name="id"></input>
-                                <label for="description">Description:</label>
-                                <input type="text" name="description"></input><br></br>
-                                <label for="distribution">distribution_info:</label>
-                                <input type="text" name="distribution"></input><br></br>
-                                <label for="modal">modal_number:</label>
-                                <input type="text" name="modal"></input><br></br>
-                                <label for="name">Name:</label>
-                                <input type="text" name="name"></input><br></br>
-                                <label for="price">Price:</label>
-                                <input type="number" name="price"></input><br></br>
-                                <label for="stock">quantity_stock:</label>
-                                <input type="number" name="stock"></input> <br></br>                          
-                                <label for="warrant">Warrant_status:</label>
-                                <input type="text" name="warrant"></input><br></br>
-                                <br></br>
-                                    <button type="submit" class="shopBtn">Add Item</button>
-</form>
+                        <div id="forms" style={{verticalAlign:'top'}}>
 
                         </div>
                     

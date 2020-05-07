@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import Login from './Components/Login';
 import Home_Page from './Components/Home_Page';
 import { Router, Switch, Route, Link } from 'react-router-dom';
@@ -7,6 +8,7 @@ import Sign_up from './Components/Sign-up';
 import Cart from './Components/Cart'
 import ProductDetails from './Components/Product_details'
 import ProductManager from './Components/ProductManagerPage'
+import adder from './Components/itemadder'
 
 
 function App() {
@@ -18,7 +20,8 @@ function App() {
         <Route path="/signup" exact component={Sign_up}></Route>
         <Route path="/cart" exact component={Cart}></Route>
         <Route path="/productdetails" exact component={ProductDetails}></Route>
-        <Route path="/ProductManager" exact component={ProductManager}></Route>     
+        <Route path="/ProductManager" exact component={ProductManager}></Route>
+        <Route path="/test" exact component={adder}></Route>             
       </Switch>
     </Router>
   );
