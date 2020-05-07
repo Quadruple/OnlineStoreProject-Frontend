@@ -13,7 +13,7 @@ class CartItems extends Component {
         CartService.getCheckedOutItems(currentUser.id).then(
             response => {
                 this.setState({
-                    cartitems: response.data
+                    cartitems: this.state.cartitems.concat(response.data)
                 });
             },
             error => {
@@ -42,7 +42,7 @@ class CartItems extends Component {
         {
             cartitems: [],
             quantity: [],
-            decrementResponse: [],
+            decrementResponse: "",
             removeResponse: "",
             incrementResponse: ""
         };
