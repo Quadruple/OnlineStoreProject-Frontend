@@ -30,9 +30,7 @@ class CartItems extends Component {
             }
         ).then(
             () => {
-                this.state.cartitems.forEach(cartitem => {
-                    this.getQuantityOfProduct(cartitem.id)
-                });
+                this.getQuantityOfProduct();
             }
         );
     }
@@ -44,13 +42,15 @@ class CartItems extends Component {
         {
             cartitems: [],
             quantity: [],
-            quantityCollector: [],
-            decrementResponse: []
+            decrementResponse: [],
+            removeResponse: "",
+            incrementResponse: ""
         };
 
         this.getProductPicture = this.getProductPicture.bind(this);
         this.getQuantityOfProduct = this.getQuantityOfProduct.bind(this);
         this.decrementQuantityofProduct = this.decrementQuantityofProduct.bind(this);
+        this.removeProductFromUsersCart = this.removeProductFromUsersCart.bind(this);
     }
 
     getProductPicture = (pictureId) => {
@@ -67,6 +67,61 @@ class CartItems extends Component {
         else if (pictureId === 4) {
             return bialetti;
         }
+    }
+
+
+    removeProductFromUsersCart = (productId) => {
+        var currentUser = AuthService.getCurrentUser();
+        CartService.removeFromCart(currentUser.id, productId).then(
+            response => {
+                this.setState({
+                    removeResponse: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    removeResponse:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log(this.state.removeResponse);
+            }
+        ).then(
+            () => {
+                window.location.reload(false);
+            }
+        );
+    }
+
+    incrementQuantityofProduct = (productId) => {
+        var currentUser = AuthService.getCurrentUser();
+        CartService.incrementUserQuantityOfProduct(currentUser.id, productId).then(
+            response => {
+                this.setState({
+                    incrementResponse: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    incrementResponse:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log(this.state.incrementResponse);
+            }
+        ).then(
+            () => {
+                window.location.reload(false);
+            }
+        );
     }
 
     decrementQuantityofProduct = (productId) => {
@@ -96,33 +151,26 @@ class CartItems extends Component {
         );
     }
 
-    getQuantityOfProduct = (productId) => {
-        var currentUser = AuthService.getCurrentUser();
-        CartService.getUserQuantityOfProduct(currentUser.id, productId).then(
-            response => {
-                this.setState({
-                    quantity: response.data
-                });
-            },
-            error => {
-                this.setState({
-                    quantity:
-                        (error.response && error.response.data) ||
-                        error.message ||
-                        error.toString()
-                });
-            }
-        ).then(
-            () => {
-                console.log(this.state.quantity);
-            }
-        ).then(
-            () => {
-                let beforeQuantities = [...this.state.quantityCollector]
-                beforeQuantities.push(this.state.quantity[0].quantity);
-                this.setState({quantityCollector: beforeQuantities});
-            }
-        );
+    getQuantityOfProduct = () => {
+        let currentUser = AuthService.getCurrentUser();
+        this.state.cartitems.map((item, index) => (
+            CartService.getUserQuantityOfProduct(currentUser.id, item.id).then(
+                response => {
+                    console.log(response.data);
+                    this.setState({
+                        quantity: this.state.quantity.concat(response.data[0].quantity)
+                    });
+                },
+                error => {
+                    this.setState({
+                        quantity:
+                            (error.response && error.response.data) ||
+                            error.message ||
+                            error.toString()
+                    });
+                }
+            )
+        ));
     }
 
     render() {
@@ -148,12 +196,12 @@ class CartItems extends Component {
                             <td><span class="shopBtn"><span>{item.warrantyStatus}</span></span> </td>
                             <td>{item.price}$</td>
                             <td>
-                                <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={this.state.quantityCollector[index]} readOnly></input>
+                                <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={this.state.quantity[index]} readOnly></input>
                                 <div class="input-append">
-                                    <button class="btn btn-mini" type="button" onClick={() => this.decrementQuantityofProduct(item.id)}>-</button><button class="btn btn-mini" type="button"> + </button><button class="btn btn-mini btn-danger" type="button" ><span class="icon-remove"></span></button>
+                                    <button class="btn btn-mini" type="button" onClick={() => this.decrementQuantityofProduct(item.id)}>-</button><button class="btn btn-mini" type="button" onClick={() => this.incrementQuantityofProduct(item.id)}> + </button><button class="btn btn-mini btn-danger" type="button" onClick={() => this.removeProductFromUsersCart(item.id)}><span class="icon-remove"></span></button>
                                 </div>
                             </td>
-                            <td>{parseInt(this.state.quantityCollector[index]) * parseInt(item.price)}$</td>
+                            <td>{parseInt(this.state.quantity[index]) * parseInt(item.price)}$</td>
                         </tr>
                     ))}
                 </tbody>
