@@ -9,7 +9,7 @@ class itemAdder extends Component {
         
 
         this.state = {
-            id:"",
+
             description:"",
             modal:"",
             name:"",
@@ -22,11 +22,7 @@ class itemAdder extends Component {
         };
     }
 
-    handleIdChange = (event) => {
-        this.setState({
-            id: event.target.value
-        })
-    }
+
     handleDescriptionChange = (event) => {
         this.setState({
             description: event.target.value
@@ -77,16 +73,15 @@ class itemAdder extends Component {
             <div>
                 <form onSubmit={this.handleFormSubmit}>
                     <h3>Item Addition Form</h3>
-                    <label for="id">ID:</label>
-                    <input type="text" name="id" onChange={this.handleIdChange}></input>
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" onChange={this.handleNameChange}></input><br></br>
                     <label for="description">Description:</label>
                     <input type="text" name="description" onChange={this.handleDescriptionChange}></input><br></br>
                     <label for="distribution">distribution_info:</label>
                     <input type="text" name="distribution" onChange={this.handleDistributionChange}></input><br></br>
                     <label for="modal">modal_number:</label>
                     <input type="text" name="modal" onChange={this.handleModalChange}></input><br></br>
-                    <label for="name">Name:</label>
-                    <input type="text" name="name" onChange={this.handleNameChange}></input><br></br>
+
                     <label for="price">Price:</label>
                     <input type="number" name="price" onChange={this.handlePriceChange}></input><br></br>
                     <label for="stock">quantity_stock:</label>

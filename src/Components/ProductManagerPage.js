@@ -6,7 +6,7 @@ import '../assets/css/bootstrap.css';
 import "../services/products.service";
 import ItemAdder from '../Components/itemadder';
 import ProductManaging from '../Components/ProductManaging';
-
+import pmanagerService from '../services/pmanager.service'
 
 class ProductManagerPage extends Component {
     constructor(props) {
@@ -66,7 +66,7 @@ class ProductManagerPage extends Component {
                     </div>
                 </div>
                 <div class="row">
-                    <div id="sidebar" class="span3" style={{ height: 1600, width: 200 }}>
+                    <div id="sidebar" class="span3" style={{ height: 700, width: 200 }}>
                         <div class="well well-small">
                             <div align="left" ><b>Manager Menu</b></div><br></br>
                             <ul class="nav nav-list" id="insertCategories">
