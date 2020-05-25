@@ -7,6 +7,7 @@ const ADD_TO_CART = "http://localhost:8080/api/test/addToCart/";
 const FETCH_QUANTITY = "http://localhost:8080/api/test/fetchUserSelectsProducts/";
 const DECREMENT_PRODUCT_QUANTITY_OF_USER = "http://localhost:8080/api/test/removeQuantityFromCart/";
 const INCREMENT_PRODUCT_QUANTITY_OF_USER = "http://localhost:8080/api/test/incrementQuantityFromCart/";
+const FINALIZE_CHECKOUT = "http://localhost:8080/api/test/finalizeCheckout/";
 
 class CartService
 {
@@ -38,6 +39,11 @@ class CartService
     incrementUserQuantityOfProduct(userId, productId)
     {
         return axios.post(INCREMENT_PRODUCT_QUANTITY_OF_USER + userId + "/" + productId, { headers: authHeader() });
+    }
+
+    finalizeCheckout(userId)
+    {
+        return axios.get(FINALIZE_CHECKOUT + userId, {headers: authHeader()});      
     }
 }
 

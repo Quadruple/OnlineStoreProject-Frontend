@@ -3,10 +3,47 @@ import '../style.css'
 import '../assets/font-awesome/css/font-awesome.css'
 import '../assets/css/bootstrap.css'
 import CartItems from './CartItems'
+import AuthService from '../services/auth.service'
+import CartService from '../services/cart.service'
 
 class Cart extends Component {
     constructor(props) {
         super(props);
+
+        this.state = 
+        {
+            checkoutResponse: ""
+        };
+
+        this.finalizeCheckout = this.finalizeCheckout.bind(this);
+    }
+
+    finalizeCheckout = () => {
+        var currentUser = AuthService.getCurrentUser();
+        CartService.finalizeCheckout(currentUser.id).then(
+            response => {
+                this.setState({
+                    checkoutResponse: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    checkoutResponse:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log(this.state.checkoutResponse);
+            }
+        ).then(
+            () => {
+                alert(this.state.checkoutResponse);
+                window.location.reload(false);
+            }
+        );
     }
 
     render() {
@@ -104,7 +141,7 @@ class Cart extends Component {
                                 </tbody>
                             </table>
                             <a href="products.html" class="shopBtn btn-large"><span class="icon-arrow-left"></span> Continue Shopping </a>
-                            <a href="login.html" class="shopBtn btn-large pull-right">Next <span class="icon-arrow-right"></span></a>
+                            <a class="shopBtn btn-large pull-right" onClick={() => this.finalizeCheckout()}>Next <span class="icon-arrow-right"></span></a>
 
                         </div>
                     </div>
