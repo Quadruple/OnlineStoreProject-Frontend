@@ -7,6 +7,7 @@ import Sign_up from './Components/Sign-up';
 import Cart from './Components/Cart'
 import ProductDetails from './Components/Product_details'
 import ProductManager from './Components/ProductManagerPage'
+import SalesManager from './Components/SalesManager'
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
         <Route path="/signup" exact component={Sign_up}></Route>
         <Route path="/cart" exact component={Cart}></Route>
         <Route path="/productdetails" exact component={ProductDetails}></Route>
-        <Route path="/ProductManager" exact component={ProductManager}></Route>     
+        <Route path="/productmanager" exact component={ProductManager}></Route>
+        <Route path="/salesmanager" exact component={SalesManager}></Route>     
       </Switch>
     </Router>
   );
