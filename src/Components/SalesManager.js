@@ -58,7 +58,7 @@ class SalesManager extends Component {
                     </div>
                 </div>
                 <div class="row">
-                    <div id="sidebar" class="span3" style={{ height: 1600, width: 200 }}>
+                    <div id="sidebar" class="span3" style={{ height: 310, width: 200 }}>
                         <div class="well well-small">
                             <div align="left" ><b>Manager Menu</b></div><br></br>
                             <ul class="nav nav-list" id="insertCategories">
@@ -66,7 +66,7 @@ class SalesManager extends Component {
                                     <a onClick={() => this.renderCorrespondingMenu(0)}>Set Product Discount</a>
                                 </li><br></br>
                                 <li>
-                                    <a onClick={() => this.renderCorrespondingMenu(1)}>View Invoices</a>
+                                    <a onClick={() => this.renderCorrespondingMenu(1)}>View All Purchases</a>
                                 </li><br></br>
                                 <li>
                                     <a>View Revenues in Between Dates</a>

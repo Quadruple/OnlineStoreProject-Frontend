@@ -3,6 +3,7 @@ import authHeader from './auth-header';
 
 const REMOVE_DISCOUNT = "http://localhost:8080/api/test/removeDiscountItem/";
 const SET_DISCOUNT_TO_PRODUCT = "http://localhost:8080/api/test/discountItem/";
+const GET_ALL_INVOICES = "http://localhost:8080/api/test/fetchAllCheckedOutItems/";
 
 class SalesManagerServices
 {
@@ -13,7 +14,12 @@ class SalesManagerServices
 
     setDiscountToProduct(productId, discountPercentage)
     {
-        return axios.get(SET_DISCOUNT_TO_PRODUCT + productId + "/" + discountPercentage);
+        return axios.get(SET_DISCOUNT_TO_PRODUCT + productId + "/" + discountPercentage, { headers : authHeader() });
+    }
+
+    getAllInvoices()
+    {
+        return axios.get(GET_ALL_INVOICES, { header: authHeader() });
     }
 }
 
