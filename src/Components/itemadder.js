@@ -60,37 +60,37 @@ class itemAdder extends Component {
     }
     handleFormSubmit = (event) => {
 
-
-        pmanagerService.AddItem(this.state.id, this.state.description,this.state.distribution_info,this.state.modal,this.state.Warrant_status,this.state.name,this.state.stock,this.state.price).then(
+        console.log("here");
+        pmanagerService.AddItem( this.state.description,this.state.distribution_info,this.state.modal,this.state.Warrant_status,this.state.name,this.state.stock,this.state.price).then(
             () => {
                 alert("Item successfully added");
-                window.location.reload();
+
             });
     }
 
     render() {
         return(
             <div>
-                <form onSubmit={this.handleFormSubmit}>
+
                     <h3>Item Addition Form</h3>
                     <label for="name">Name:</label>
-                    <input type="text" name="name" onChange={this.handleNameChange}></input><br></br>
+                    <input required="required" type="text" name="name" onChange={this.handleNameChange}></input><br></br>
                     <label for="description">Description:</label>
-                    <input type="text" name="description" onChange={this.handleDescriptionChange}></input><br></br>
+                    <input required="required" type="text" name="description" onChange={this.handleDescriptionChange}></input><br></br>
                     <label for="distribution">distribution_info:</label>
-                    <input type="text" name="distribution" onChange={this.handleDistributionChange}></input><br></br>
+                    <input required="required" type="text" name="distribution" onChange={this.handleDistributionChange}></input><br></br>
                     <label for="modal">modal_number:</label>
-                    <input type="text" name="modal" onChange={this.handleModalChange}></input><br></br>
+                    <input required="required" type="text" name="modal" onChange={this.handleModalChange}></input><br></br>
 
                     <label for="price">Price:</label>
-                    <input type="number" name="price" onChange={this.handlePriceChange}></input><br></br>
+                    <input required="required" type="number" name="price" onChange={this.handlePriceChange}></input><br></br>
                     <label for="stock">quantity_stock:</label>
-                    <input type="number" name="stock" onChange={this.handleStockChange}></input> <br></br>                          
+                    <input required="required" type="number" name="stock" onChange={this.handleStockChange}></input> <br></br>                          
                     <label for="warrant">Warrant_status:</label>
-                    <input type="text" name="warrant" onChange={this.handleWarrantChange}></input><br></br>
+                    <input required="required" type="text" name="warrant" onChange={this.handleWarrantChange}></input><br></br>
                     <br></br>
-                        <button type="submit" class="shopBtn">Add Item</button>
-                </form>
+                        <button onClick={this.handleFormSubmit} class="shopBtn">Add Item</button>
+
 
             </div>)
         }
