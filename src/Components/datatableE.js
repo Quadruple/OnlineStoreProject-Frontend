@@ -4,7 +4,7 @@ import pmanagerService from '../services/pmanager.service'
 const $=require('jquery')
 $.DataTable = require('datatables.net')
 
-export class Dtable extends Component
+export class DtableE extends Component
 {
     componentDidMount(){
         
@@ -16,7 +16,7 @@ export class Dtable extends Component
 
         data:this.props.data.map((item, index) => (
         
-        ([item.id,item.description,item.modal,item.distribution_info,item.Warrant_status,item.stock,item.price,'<button>Delete</button>'])
+        ([item.id,'<input type="text" value='+item.description+'>'+item.description+'</input>','<input type="text" value='+item.modal+'>'+item.modal+'</input>','<input type="text" value='+item.distribution_info+'>'+item.distribution_info+'</input>','<input type="text" value='+item.Warrant_status+'>'+item.Warrant_status+'</input>','<input type="number" value='+item.stock+'>'+item.stock+'</input>','<input type="number" value='+item.price+'>'+item.price+'</input>','<button>Update</button>'])
         
         
         ))
@@ -24,16 +24,14 @@ export class Dtable extends Component
         }
         )
 
+ 
+
         this.$el.on( 'click', 'button', function () {
             var data = x.row( $(this).parents('tr') ).data();
-            pmanagerService.DeleteItem(data[0]);
-        } );
+            pmanagerService.UpdateItem(data[1],data[2],data[3],data[4],data[5],data[6],data[7],);
+        } );        
+    }
 
-       
-    }
-    handleDeleteButton = (ProductId) => {
-        pmanagerService.DeleteItem(ProductId);
-    }
 
     render(){
 

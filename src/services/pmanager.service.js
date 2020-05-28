@@ -18,6 +18,7 @@ class pmanagerService
     }
     UpdateItem(id,description,distribution_info,modal,Warrant_status,name,stock,price)
     {
+        console.log(UPDATE_ITEM_URL+id+"/"+description+"/"+distribution_info+"/"+modal+"/"+name+"/"+price+"/"+stock+"/"+Warrant_status )
         return axios.get(UPDATE_ITEM_URL+id+"/"+description+"/"+distribution_info+"/"+modal+"/"+name+"/"+price+"/"+stock+"/"+Warrant_status , { headers: authHeader() });
     }
     DeleteItem(id)

@@ -6,6 +6,7 @@ import '../assets/css/bootstrap.css';
 import "../services/products.service";
 import ItemAdder from '../Components/itemadder';
 import ProductManaging from '../Components/ProductManaging';
+import ProductManagingE from '../Components/ProductManagingE';
 import pmanagerService from '../services/pmanager.service'
 import productsService from '../services/products.service';
 import {Dtable} from './datatable.js'
@@ -20,6 +21,7 @@ class ProductManagerPage extends Component {
 
         this.state = {
             searchString: "",
+            Products:[{id:1,description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"}]
 
 
         };
@@ -44,6 +46,12 @@ class ProductManagerPage extends Component {
         ReactDOM.render(element, document.getElementById('forms'));
         document.getElementById('sidebar').style.height="200px";
     }    
+    handleMenu3= (event) =>{
+        var element=<ProductManagingE ></ProductManagingE>;
+        
+        ReactDOM.render(element, document.getElementById('forms'));
+        document.getElementById('sidebar').style.height="200px";
+    }        
 
 
 
@@ -82,15 +90,18 @@ class ProductManagerPage extends Component {
                                 <a >-Add New Product</a>
                                 </li>
                                 <li style={{borderStyle: "double"}}onClick={this.handleMenu2}>
-                                <a >-Manage Products </a>
+                                <a >-Display Products </a>
                                 </li>
+                                <li style={{borderStyle: "double"}}onClick={this.handleMenu3}>
+                                <a >-Edit Products </a>
+                                </li>                                
                                 <li>
                                 </li><br></br>
                             </ul>
                         </div>
                     </div>
                     <div class="well well-small">
-                        <h3> Product Management </h3>
+                        <h3> Product Management </h3><div id="buttonholder"style={{float:"right"}}></div>
                         <hr class="soften" />
                         <div  id="forms">Welcome Managet to your manage page.<br></br>In here you can:<br></br> add new products increase the quantity of existing item, Manage users setting</div>
 

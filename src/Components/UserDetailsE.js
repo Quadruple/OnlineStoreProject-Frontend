@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import pmanagerService from '../services/pmanager.service'
+import userService from '../services/user.service';
 
 class UserDetailsE extends Component {
     constructor(props) {
@@ -32,26 +33,22 @@ class UserDetailsE extends Component {
             username: event.target.value
         })
     }
-    handlePriceChange = (event) => {
+    handleEmailChange = (event) => {
         this.setState({
-            price: event.target.value
+            email: event.target.value
         })
     }
-    handleStockChange = (event) => {
+    handleAdressChange = (event) => {
         this.setState({
-            stock: event.target.value
+            address: event.target.value
         })
     }
-    handleWarrantChange = (event) => {
-        this.setState({
-            Warrant_status: event.target.value
-        })
-    }
+ 
 
     handleFormSubmit = (event) => {
 
         console.log("here");
-        pmanagerService.AddItem( this.state.description,this.state.distribution_info,this.state.modal,this.state.Warrant_status,this.state.name,this.state.stock,this.state.price).then(
+        userService.Update( this.state.name,this.state.email,this.state.address).then(
             () => {
                 alert("Changes Applied");
 
@@ -68,9 +65,9 @@ class UserDetailsE extends Component {
                     <label for="username ">username:</label>
                     <input type="text" readOnly={true} value={this.state.username} name="username" onChange={this.handleUsernameChange}></input><br></br>
                     <label for="email">email:</label>
-                    <input  type="text" value={this.state.email} name="email" onChange={this.handleDistributionChange}></input><br></br>
+                    <input  type="text" value={this.state.email} name="email" onChange={this.handleEmailChange}></input><br></br>
                     <label for="adress">address:</label>
-                    <input  type="text" value={this.state.address} name="address" onChange={this.handleModalChange}></input><br></br>
+                    <input  type="text" value={this.state.address} name="address" onChange={this.handleAdressChange}></input><br></br>
 
                     <label for="price">roles:</label>
                     <input  type="text" readOnly={true} value={this.state.roles} name="roles" ></input><br></br>

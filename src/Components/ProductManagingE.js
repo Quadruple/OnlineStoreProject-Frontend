@@ -5,7 +5,7 @@ import pmanagerService from '../services/pmanager.service'
 import ReactDOM from 'react-dom'
 
 
-class ProductManaging extends Component {
+class ProductManagingE extends Component {
     
     
     /*componentDidMount() {
@@ -61,7 +61,7 @@ class ProductManaging extends Component {
     render() {
         return(<div id="here" style={{textAlign: 'right'}}>
             <button id="buttonholder"style={{float:"right"}}></button>
-            <Dtable data={this.state.Products}></Dtable>
+            <DtableE data={this.state.Products}></DtableE>
             
 
 
@@ -69,4 +69,4 @@ class ProductManaging extends Component {
             
         }
     }
-export default ProductManaging
+export default ProductManagingE
