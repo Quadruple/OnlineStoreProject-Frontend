@@ -12,11 +12,11 @@ export class Dtable extends Component
         var x=this.$el.DataTable({
 
             
-            columns:[{title:"id",},{title:"description"},{title:"modal"},{title:"distribution_info"},{title:"Warrant_status"},{title:"stock"},{title:"price"},{title:" "}],
+            columns:[{title:"name",},{title:"description"},{title:"modal"},{title:"distribution_info"},{title:"Warrant_status"},{title:"stock"},{title:"price"},{title:" "}],
 
         data:this.props.data.map((item, index) => (
         
-        ([item.id,item.description,item.modal,item.distribution_info,item.Warrant_status,item.stock,item.price,'<button>Delete</button>'])
+        ([item.name,item.description,item.modal,item.distribution_info,item.Warrant_status,item.stock,item.price,'<button class="btn btn-mini pull-right" id='+item.id+'>Delete</button>'])
         
         
         ))
@@ -26,7 +26,7 @@ export class Dtable extends Component
 
         this.$el.on( 'click', 'button', function () {
             var data = x.row( $(this).parents('tr') ).data();
-            pmanagerService.DeleteItem(data[0]);
+            pmanagerService.DeleteItem(x.$(this).attr('id'));
         } );
 
        

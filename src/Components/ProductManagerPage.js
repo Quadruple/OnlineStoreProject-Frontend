@@ -94,7 +94,10 @@ class ProductManagerPage extends Component {
                                 </li>
                                 <li style={{borderStyle: "double"}}onClick={this.handleMenu3}>
                                 <a >-Edit Products </a>
-                                </li>                                
+                                </li>
+                                <li style={{borderStyle: "double"}}onClick={this.handleMenu3}>
+                                <a >-Review Management </a>
+                                </li>                                                                 
                                 <li>
                                 </li><br></br>
                             </ul>

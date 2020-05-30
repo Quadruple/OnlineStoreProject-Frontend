@@ -12,11 +12,11 @@ export class DtableE extends Component
         var x=this.$el.DataTable({
 
             
-            columns:[{title:"id",},{title:"description"},{title:"modal"},{title:"distribution_info"},{title:"Warrant_status"},{title:"stock"},{title:"price"},{title:" "}],
+            columns:[{title:"name",},{title:"description"},{title:"modal"},{title:"distribution_info"},{title:"Warrant_status"},{title:"stock"},{title:"price"},{title:" "}],
 
         data:this.props.data.map((item, index) => (
         
-        ([item.id,'<input type="text" value='+item.description+'>'+item.description+'</input>','<input type="text" value='+item.modal+'>'+item.modal+'</input>','<input type="text" value='+item.distribution_info+'>'+item.distribution_info+'</input>','<input type="text" value='+item.Warrant_status+'>'+item.Warrant_status+'</input>','<input type="number" value='+item.stock+'>'+item.stock+'</input>','<input type="number" value='+item.price+'>'+item.price+'</input>','<button>Update</button>'])
+        ([item.name,'<input type="text" value='+item.description+'>'+item.description+'</input>','<input type="text" value='+item.modal+'>'+item.modal+'</input>','<input type="text" value='+item.distribution_info+'>'+item.distribution_info+'</input>','<input type="text" value='+item.Warrant_status+'>'+item.Warrant_status+'</input>','<input type="number" value='+item.stock+'>'+item.stock+'</input>','<input type="number" value='+item.price+'>'+item.price+'</input>','<button class="btn btn-mini pull-right" id='+item.id+'>Update</button>'])
         
         
         ))
@@ -28,7 +28,9 @@ export class DtableE extends Component
 
         this.$el.on( 'click', 'button', function () {
             var data = x.row( $(this).parents('tr') ).data();
-            pmanagerService.UpdateItem(data[1],data[2],data[3],data[4],data[5],data[6],data[7],);
+            var index=x.row( this ).index();
+           
+            pmanagerService.UpdateItem(x.$(this).attr('id'),x.cell(index,1).nodes().to$().find('input').val(),x.cell(index,2).nodes().to$().find('input').val(),x.cell(index,3).nodes().to$().find('input').val(),x.cell(index,4).nodes().to$().find('input').val(),data[0],x.cell(index,5).nodes().to$().find('input').val(),x.cell(index,6).nodes().to$().find('input').val());
         } );        
     }
 

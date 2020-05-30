@@ -25,7 +25,7 @@ class ProductManagingE extends Component {
         
 
         this.state = {
-            Products:[{id:1,description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"}],
+            Products:[{id:1,description:"z",distribution_info:"aaa",modal:"sdfg",name:"something",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",name:"something",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",name:"something",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",name:"something",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"}],
             tablemode:0
 
 
