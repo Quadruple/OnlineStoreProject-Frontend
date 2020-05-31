@@ -14,7 +14,7 @@ class itemAdder extends Component {
             modal:"",
             name:"",
             price:0,
-            stock:0,
+            stock:-1,
             Warrant_status:"",
             distribution_info:""
 
@@ -59,19 +59,24 @@ class itemAdder extends Component {
         })
     }
     handleFormSubmit = (event) => {
-
-        console.log("here");
+        if(this.state.price!=-1 && this.state.stock!=0 && this.state.Warrant_status!="" && this.state.description!="" &&this.state.distribution_info!="" && this.state.modal!="" && this.state.name!="")
+        {console.log("here");
         pmanagerService.AddItem( this.state.description,this.state.distribution_info,this.state.modal,this.state.Warrant_status,this.state.name,this.state.stock,this.state.price).then(
             () => {
                 alert("Item successfully added");
 
-            });
+            });}
     }
+    fakefunction=(event) =>{
+        
+        
+        event.preventDefault();
+        return false;}
 
     render() {
         return(
             <div>
-
+                <form onSubmit={this.fakefunction}>
                     <h3>Item Addition Form</h3>
                     <label for="name">Name:</label>
                     <input required="required" type="text" name="name" onChange={this.handleNameChange}></input><br></br>
@@ -91,7 +96,7 @@ class itemAdder extends Component {
                     <br></br>
                         <button onClick={this.handleFormSubmit} class="shopBtn">Add Item</button>
 
-
+</form>
             </div>)
         }
     }
