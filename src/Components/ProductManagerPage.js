@@ -5,6 +5,7 @@ import '../assets/font-awesome/css/font-awesome.css';
 import '../assets/css/bootstrap.css';
 import "../services/products.service";
 import ItemAdder from '../Components/itemadder';
+import CatAdder from '../Components/CategoryAdder';
 import ProductManaging from '../Components/ProductManaging';
 import ProductManagingE from '../Components/ProductManagingE';
 import pmanagerService from '../services/pmanager.service'
@@ -12,6 +13,7 @@ import productsService from '../services/products.service';
 import {Dtable} from './datatable.js'
 
 class ProductManagerPage extends Component {
+   
     constructor(props) {
         
         super(props);
@@ -44,14 +46,26 @@ class ProductManagerPage extends Component {
         var element=<ProductManaging ></ProductManaging>;
         
         ReactDOM.render(element, document.getElementById('forms'));
-        document.getElementById('sidebar').style.height="200px";
+        document.getElementById('sidebar').style.height="250px";
     }    
     handleMenu3= (event) =>{
         var element=<ProductManagingE ></ProductManagingE>;
         
         ReactDOM.render(element, document.getElementById('forms'));
-        document.getElementById('sidebar').style.height="200px";
-    }        
+        document.getElementById('sidebar').style.height="250px";
+    }
+    handleMenu4= (event) =>{
+        var element=<CatAdder ></CatAdder>;
+        
+        ReactDOM.render(element, document.getElementById('forms'));
+        document.getElementById('sidebar').style.height="250px";
+    }
+    handleMenu5= (event) =>{
+        var element=<CatAdder ></CatAdder>;
+        
+        ReactDOM.render(element, document.getElementById('forms'));
+        document.getElementById('sidebar').style.height="250px";
+    }                  
 
 
 
@@ -69,10 +83,10 @@ class ProductManagerPage extends Component {
                             <div class="nav-collapse">
                                 <ul class="nav">
                                     <li ><a href="/Home">Home	</a></li>
-                                    <li class="active"><a href="index.html">Manage</a></li>
-                                    <form onSubmit={this.searchCoffeeMachines} class="navbar-search pull-left">
-                                        <input type="text" placeholder="Search" class="search-query span2" onChange={this.handleSearchBarChange}></input>
-                                    </form>
+                                    <li><a href="/Profile">Profile</a></li>
+
+                                    <li class="active"><a href="/ProductManager">Manage</a></li>
+                                    
                                     <ul class="nav pull-right"></ul>
 
                                 </ul>
@@ -81,7 +95,7 @@ class ProductManagerPage extends Component {
                     </div>
                 </div>
                 <div class="row">
-                    <div id="sidebar" class="span3" style={{ height: 700, width: 200 }}>
+                    <div id="sidebar" class="span3" style={{ height: 700, width: 200, marginRight: 50 }}>
                         <div class="well well-small">
                             <div align="left" ><b>Manager Menu</b></div>
                             <hr class="soften" />
@@ -89,13 +103,16 @@ class ProductManagerPage extends Component {
                                 <li style={{borderStyle: "double"}} onClick={this.handleMenu1}>
                                 <a >-Add New Product</a>
                                 </li>
+                                <li style={{borderStyle: "double"}} onClick={this.handleMenu4}>
+                                <a >-Add New Category</a>
+                                </li>                                
                                 <li style={{borderStyle: "double"}}onClick={this.handleMenu2}>
                                 <a >-Display Products </a>
                                 </li>
                                 <li style={{borderStyle: "double"}}onClick={this.handleMenu3}>
                                 <a >-Edit Products </a>
                                 </li>
-                                <li style={{borderStyle: "double"}}onClick={this.handleMenu3}>
+                                <li style={{borderStyle: "double"}}onClick={this.handleMenu5}>
                                 <a >-Review Management </a>
                                 </li>                                                                 
                                 <li>

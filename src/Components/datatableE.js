@@ -12,7 +12,7 @@ export class DtableE extends Component
         var x=this.$el.DataTable({
 
             
-            columns:[{title:"name",},{title:"description"},{title:"modal"},{title:"distribution_info"},{title:"Warrant_status"},{title:"stock"},{title:"price"},{title:" "}],
+            columns:[{title:"Name",},{title:"Description"},{title:"Modal Number"},{title:"Distribution Info"},{title:"Warrant Status"},{title:"Stock"},{title:"Price"},{title:" "}],
 
         data:this.props.data.map((item, index) => (
         

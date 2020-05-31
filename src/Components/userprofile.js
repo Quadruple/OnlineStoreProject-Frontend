@@ -50,16 +50,19 @@ class UserPage extends Component {
         document.getElementById('sidebar').style.height="700px";
         var but=document.createElement("button");
         but.value=0;
+        but.className="btn btn-mini pull-right";
         but.style="float:right";
         but.appendChild(document.createTextNode("Edit"));
         var but2=document.createElement("button");
+        but2.className="btn btn-mini pull-right";
         but2.style="float:right";
         but2.appendChild(document.createTextNode("Cancel"));
         but.onclick=function(){
             var element=<Edit></Edit>;
             ReactDOM.render(element, document.getElementById('forms'));
             document.getElementById('sidebar').style.height="700px";
-            //document.getElementById('buttonholder').removeChild();
+            document.getElementById('buttonholder').removeChild(document.getElementById('buttonholder').firstChild);
+
             document.getElementById('buttonholder').appendChild(but2);
         }
 
@@ -67,7 +70,7 @@ class UserPage extends Component {
             var element=<Info></Info>;
             ReactDOM.render(element, document.getElementById('forms'));
             document.getElementById('sidebar').style.height="700px";
-            //document.getElementById('buttonholder').removeChild();
+            document.getElementById('buttonholder').removeChild(document.getElementById('buttonholder').firstChild);
             document.getElementById('buttonholder').appendChild(but);
         }        
         document.getElementById('buttonholder').appendChild(but);
@@ -107,7 +110,7 @@ class UserPage extends Component {
                     </div>
                 </div>
                 <div class="row">
-                    <div id="sidebar" class="span3" style={{ height: 700, width: 200 }}>
+                    <div id="sidebar" class="span3" style={{ height: 700, width: 200,  marginRight: 50  }}>
                         <div class="well well-small">
                             <div align="left" ><b>Menu</b></div><br></br>
                             <ul class="nav nav-list" id="insertCategories">

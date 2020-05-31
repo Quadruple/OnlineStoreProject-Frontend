@@ -5,6 +5,8 @@ const ADDITEM_URL = "http://localhost:8080/api/test/insertProduct/"; // LEARN FR
 const UPDATE_ITEM_URL = "http://localhost:8080/api/test/updateProduct/";
 const DELETE_ITEM_URL = "http://localhost:8080/api/test/deleteProductById/";
 const getAllProducts = "http://localhost:8080/api/test/getAllProducts";
+const ADDCATEGORY = "http://localhost:8080/api/test/getAllProducts";
+
 
 
 class pmanagerService
@@ -16,6 +18,10 @@ class pmanagerService
         console.log(ADDITEM_URL+description+"/"+distribution_info+"/"+modal+"/"+name+"/"+price+"/"+stock+"/"+Warrant_status )
         return axios.get(ADDITEM_URL+description+"/"+distribution_info+"/"+modal+"/"+name+"/"+price+"/"+stock+"/"+Warrant_status , { headers: authHeader() });
     }
+    AddCategory(category)
+    {
+        return axios.get(ADDCATEGORY+category , { headers: authHeader() });
+    }    
     UpdateItem(id,description,distribution_info,modal,Warrant_status,name,stock,price)
     {
         console.log(UPDATE_ITEM_URL+id+"/"+description+"/"+distribution_info+"/"+modal+"/"+name+"/"+price+"/"+stock+"/"+Warrant_status )
