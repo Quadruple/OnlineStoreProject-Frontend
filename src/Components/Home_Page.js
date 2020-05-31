@@ -4,9 +4,10 @@ import '../assets/font-awesome/css/font-awesome.css';
 import '../assets/css/bootstrap.css';
 import "../services/products.service";
 import ProductsService from '../services/products.service';
-import Category from './Category'
-import CoffeeMachineObjects from './CoffeeMachineObjects'
-import ProductService from '../services/products.service'
+import Category from './Category';
+import CoffeeMachineObjects from './CoffeeMachineObjects';
+import ProductService from '../services/products.service';
+import AuthService from '../services/auth.service'
 
 class Home_Page extends Component {
     componentDidMount() {
@@ -38,8 +39,14 @@ class Home_Page extends Component {
 
         this.state = {
             searchString: "",
-            coffeeMachineResults: []
+            coffeeMachineResults: [],
+            currentUser: AuthService.getCurrentUser()
         };
+
+        this.handleHeaderHomeButton = this.handleHeaderHomeButton.bind(this);
+        this.handleHeaderManagementButton = this.handleHeaderManagementButton.bind(this);
+        this.categoryClickStateHandler = this.categoryClickStateHandler.bind(this);
+        this.handleAllCategorySelection = this.handleAllCategorySelection.bind(this);
     }
 
     handleSearchBarChange = (event) => {
@@ -82,6 +89,27 @@ class Home_Page extends Component {
         window.location.reload();
     }
 
+    handleHeaderHomeButton = () => {
+        this.props.history.push("/home");
+        window.location.reload();
+    }
+
+    handleHeaderManagementButton = () => {
+        this.props.history.push("/salesmanager");
+        window.location.reload();
+    }
+
+    categoryClickStateHandler = (categoryProducts) => {
+        console.log(categoryProducts);
+        this.setState({
+            coffeeMachineResults: categoryProducts
+        });
+    }
+
+    handleAllCategorySelection = () => {
+        window.location.reload(false);
+    }
+
     render() {
         return (
             <div >
@@ -95,10 +123,11 @@ class Home_Page extends Component {
                             </a>
                             <div class="nav-collapse">
                                 <ul class="nav">
-                                    <li class="active"><a href="index.html">Home	</a></li>
+                                    <li class="active" onClick={() => this.handleHeaderHomeButton()}><a>Home	</a></li>
+                                    <li onClick={() => this.handleHeaderManagementButton()}><a>Management	</a></li>
 
                                     <form onSubmit={this.searchCoffeeMachines} class="navbar-search pull-left">
-                                        <input type="text" placeholder="Search" class="search-query span2" onChange={this.handleSearchBarChange}></input>
+                                        <input type="text" placeholder="Search" style={{marginTop: 5}} class="search-query span2" onChange={this.handleSearchBarChange}></input>
                                     </form>
                                     <ul class="nav pull-right"></ul>
 
@@ -108,11 +137,12 @@ class Home_Page extends Component {
                     </div>
                 </div>
                 <div class="row">
-                    <div id="sidebar" class="span3" style={{ height: 800 }}>
+                    <div id="sidebar" class="span3" style={{ height: 800, marginRight: 50 }}>
                         <div class="well well-small">
                             <div align="left" ><b>Categories:</b></div>
                             <ul class="nav nav-list" id="insertCategories">
-                                <Category></Category>
+                            <li><a align="left" onClick={() => this.handleAllCategorySelection()}><span class="icon-chevron-right"></span>All</a></li>
+                                <Category categoryClickHandler = {this.categoryClickStateHandler}></Category>
                             </ul>
                         </div>
                     </div>

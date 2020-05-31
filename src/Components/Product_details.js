@@ -5,7 +5,13 @@ import '../assets/css/bootstrap.css';
 import "../services/products.service";
 import ProductsService from '../services/products.service';
 import Category from './Category'
+import AuthService from '../services/auth.service'
+import CartService from '../services/cart.service'
 import CoffeeMachineObjects from './CoffeeMachineObjects'
+import mrcoffee from '../assets/coffeemachinesforsale/mrcoffee.jpg'
+import nespresso from '../assets/coffeemachinesforsale/nespresso.jpg'
+import bialetti from '../assets/coffeemachinesforsale/bialetti.jpg'
+import cuisinart from '../assets/coffeemachinesforsale/cuisinart.jpg'
 
 class Product_Details extends Component {
     componentDidMount() {
@@ -22,14 +28,64 @@ class Product_Details extends Component {
         this.state = {
             searchString: "",
             coffeeMachineResults: "",
-            productInfo: []
-        };   
+            productInfo: [],
+            addToCartResult: []
+        };  
+        
+        this.handleAddToCartButton = this.handleAddToCartButton.bind(this);
+        this.getProductPicture = this.getProductPicture.bind(this);
+    }
+    
+    getProductPicture = (pictureId) => {
+        console.log(pictureId);
+        if (pictureId === 1) {
+            return mrcoffee;
+        }
+        else if (pictureId === 2) {
+            return cuisinart;
+        }
+        else if (pictureId === 3) {
+            return nespresso;
+        }
+        else if (pictureId === 4) {
+            return bialetti;
+        }
     }
 
     handleSearchBarChange = (event) => {
         this.setState({
             searchString: event.target.value
         });
+    }
+
+    handleQuantityPlusButton = () => {
+
+    }
+
+    handleAddToCartButton = (productid, quantity) => {
+        var currentUser = AuthService.getCurrentUser();
+        //console.log(currentUser.id);
+        //console.log(this.props.coffeemachineobjects[index].id);
+        CartService.addToCart(currentUser.id, productid, quantity).then(
+            response => {
+                this.setState({
+                    addToCartResult: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    addToCartResult:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log(this.state.addToCartResult);
+                alert("Product added to cart successfully.");
+            }
+        );
     }
 
     render() {
@@ -46,10 +102,7 @@ class Product_Details extends Component {
                             <div class="nav-collapse">
                                 <ul class="nav">
                                     <li class="active"><a href="index.html">Home	</a></li>
-
-                                    <form onSubmit={this.searchCoffeeMachines} class="navbar-search pull-left">
-                                        <input type="text" placeholder="Search" class="search-query span2" onChange={this.handleSearchBarChange}></input>
-                                    </form>
+                                    <li><a href="index.html">Management	</a></li>
                                     <ul class="nav pull-right"></ul>
 
                                 </ul>
@@ -58,29 +111,22 @@ class Product_Details extends Component {
                     </div>
                 </div>
                 <div class="row">
-                    <div id="sidebar" class="span3" style={{ height: 600, width: 150 }}>
-                        <div class="well well-small">
-                            <div align="left" ><b>Catagories:</b></div>
-                            <ul class="nav nav-list" id="insertCategories">
-                                <Category></Category>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="well well-small">
+                    <div style={{marginLeft: 40, marginRight: 40}} class="well well-small">
                         <h3><a class="btn btn-mini pull-right" href="/cart" title="View more">Go To Cart<span class="icon-plus"></span></a> Product Details  </h3>
                         <hr class="soften" />
                         <div class="row-fluid">
-
+                            <img  class="span2" src={this.getProductPicture(this.state.productInfo.id)}></img>
                             <div class="span7">
                                 <h3>Name of the Item: {this.state.productInfo.name}</h3>
                                 <hr class="soft" />
 
                                 <form class="form-horizontal qtyFrm">
                                     <div class="control-group">
-                                        <label class="control-label"><span>${this.state.productInfo.modelNumber}</span></label>
+                                        {this.state.productInfo.discounted ? <label class="control-label"><span>Discounted! ${this.state.productInfo.discountedPrice}</span></label> : <label class="control-label"><span>${this.state.productInfo.price}</span></label>}
+                                        
                                         <div class="controls">
                                             <label class="control-label"><span>Quantity:</span></label>
-                                            <input class="span1" style={{ width: 40 }} placeholder="1" size="16" type="text" value={1}></input>
+                                            <input id="quantityInput" class="span1" style={{ width: 40 }} placeholder="1" size="16" type="text" value={1}></input>
                                             <div class="input-append">
                                                 <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button>
                                             </div>
@@ -95,9 +141,9 @@ class Product_Details extends Component {
                                     </div>
                                     <h4>{this.state.productInfo.quantityStocks} items in stock</h4>
                                     <p></p>
-                                    <button type="submit" class="shopBtn"><span class=" icon-shopping-cart"></span> Add to cart</button>
+                                    <button class="shopBtn" onClick={() => this.handleAddToCartButton(this.state.productInfo.id, document.getElementById("quantityInput").value)}><span class=" icon-shopping-cart"></span> Add to cart</button>
                                 </form>
-
+                                <p>Reviews:</p>
                             </div>
                         </div>
                     </div>

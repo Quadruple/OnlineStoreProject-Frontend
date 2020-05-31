@@ -5,6 +5,7 @@ import '../assets/css/bootstrap.css'
 import CartItems from './CartItems'
 import AuthService from '../services/auth.service'
 import CartService from '../services/cart.service'
+import history from '../history'
 
 class Cart extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class Cart extends Component {
         };
 
         this.finalizeCheckout = this.finalizeCheckout.bind(this);
+        this.handleContinueShoppingButton = this.handleContinueShoppingButton.bind(this);
     }
 
     finalizeCheckout = () => {
@@ -46,6 +48,11 @@ class Cart extends Component {
         );
     }
 
+    handleContinueShoppingButton = () => {
+        history.push("/home");
+        window.location.reload();
+    }
+
     render() {
         return (
             <div>
@@ -59,89 +66,27 @@ class Cart extends Component {
                             </a>
                             <div class="nav-collapse">
                                 <ul class="nav">
-                                    <li class=""><a href="index.html">Home	</a></li>
+                                    <li onClick={() => this.handleContinueShoppingButton()}><a>Home	</a></li>
 
                                 </ul>
-                                <form action="#" class="navbar-search pull-left">
-                                    <input type="text" placeholder="Search" class="search-query span2"></input>
-                                </form>
 
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="span12">
+                <div class="row" style={{marginLeft: 20, marginRight: 20}}>
+                    <div>
                         <ul class="breadcrumb">
-                            <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+                            <li onClick={() => this.handleContinueShoppingButton()}><a>Home</a> <span class="divider">/</span></li>
                             <li class="active">Check Out</li>
                         </ul>
                         <div class="well well-small">
                             <h1>Check Out</h1>
                             <hr class="soften" />
                             <CartItems></CartItems>
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <form class="form-inline">
-                                                <label style={{ width: 159 }}> VOUCHERS Code: </label>
-                                                <input type="text" class="input-medium" placeholder="CODE"></input>
-                                                <button type="submit" class="shopBtn"> ADD</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-
-
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <form class="form-inline">
-                                                <label style={{ width: 159 }}> VOUCHERS Code: </label>
-                                                <input type="text" class="input-medium" placeholder="CODE"></input>
-                                                <button type="submit" class="shopBtn"> ADD</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr><td>ESTIMATE YOUR SHIPPING & TAXES</td></tr>
-                                    <tr>
-                                        <td>
-                                            <form class="form-horizontal">
-                                                <div class="control-group">
-                                                    <label class="span2 control-label" for="inputEmail">Country</label>
-                                                    <div class="controls">
-                                                        <input type="text" placeholder="Country"></input>
-
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <label class="span2 control-label" for="inputPassword">Post Code/ Zipcode</label>
-                                                    <div class="controls">
-                                                        <input type="password" placeholder="Password"></input>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <div class="controls">
-                                                        <button type="submit" class="shopBtn">Click to check the price</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="products.html" class="shopBtn btn-large"><span class="icon-arrow-left"></span> Continue Shopping </a>
-                            <a class="shopBtn btn-large pull-right" onClick={() => this.finalizeCheckout()}>Next <span class="icon-arrow-right"></span></a>
+                            <a class="shopBtn btn-large"  onClick={() => this.handleContinueShoppingButton()}><span class="icon-arrow-left"></span> Continue Shopping </a>
+                            <a class="shopBtn btn-large pull-right" onClick={() => this.finalizeCheckout()}>Checkout <span class="icon-arrow-right"></span></a>
 
                         </div>
                     </div>

@@ -176,35 +176,39 @@ class CartItems extends Component {
     render() {
         return (
             <div>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Description</th>
-                        <th>Distributor</th>
-                        <th>Warranty Status</th>
-                        <th>Unit price</th>
-                        <th>Qty </th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.state.cartitems.map((item, index) => (
+                <table class="table table-bordered">
+                    <thead>
                         <tr>
-                            <div><td><img width="100" src={this.getProductPicture(item.id)} alt=""></img></td></div>
-                            <td>{item.description}</td>
-                            <td> {item.distributorInfo} </td>
-                            <td><span class="shopBtn"><span>{item.warrantyStatus}</span></span> </td>
-                            <td>{item.price}$</td>
-                            <td>
-                                <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={this.state.quantity[index]} readOnly></input>
-                                <div class="input-append">
-                                    <button class="btn btn-mini" type="button" onClick={() => this.decrementQuantityofProduct(item.id)}>-</button><button class="btn btn-mini" type="button" onClick={() => this.incrementQuantityofProduct(item.id)}> + </button><button class="btn btn-mini btn-danger" type="button" onClick={() => this.removeProductFromUsersCart(item.id)}><span class="icon-remove"></span></button>
-                                </div>
-                            </td>
-                            <td>{parseInt(this.state.quantity[index]) * parseInt(item.price)}$</td>
+                            <th>Product</th>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Distributor</th>
+                            <th>Warranty Status</th>
+                            <th>Unit price</th>
+                            <th>Qty </th>
+                            <th>Total</th>
                         </tr>
-                    ))}
-                </tbody>
+                    </thead>
+                    <tbody>
+                        {this.state.cartitems.map((item, index) => (
+                            <tr>
+                                <div><td><img width="100" src={this.getProductPicture(item.id)} alt=""></img></td></div>
+                                <td>{item.name}</td>
+                                <td>{item.description}</td>
+                                <td> {item.distributorInfo} </td>
+                                <td><span class="shopBtn"><span>{item.warrantyStatus}</span></span> </td>
+                                <td>{item.price}$</td>
+                                <td>
+                                    <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={this.state.quantity[index]} readOnly></input>
+                                    <div class="input-append">
+                                        <button class="btn btn-mini" type="button" onClick={() => this.decrementQuantityofProduct(item.id)}>-</button><button class="btn btn-mini" type="button" onClick={() => this.incrementQuantityofProduct(item.id)}> + </button><button class="btn btn-mini btn-danger" type="button" onClick={() => this.removeProductFromUsersCart(item.id)}><span class="icon-remove"></span></button>
+                                    </div>
+                                </td>
+                                <td>{parseInt(this.state.quantity[index]) * parseInt(item.price)}$</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         )
     }

@@ -13,26 +13,31 @@ class SetDiscount extends Component {
     }
 
     handleSetDiscountButtonClick = (productId, discountPercentage) => {
-        console.log("handle button", productId, discountPercentage);
-        SalesManagerServices.setDiscountToProduct(productId, discountPercentage).then(
-            response => {
-                this.setState({
-                    setDiscountResponse: response.data
-                });
-            },
-            error => {
-                this.setState({
-                    setDiscountResponse:
-                        (error.response && error.response.data) ||
-                        error.message ||
-                        error.toString()
-                });
-            }
-        ).then(
-            () => {
-                alert(this.state.setDiscountResponse);
-            }
-        );
+        if (!productId) {
+            alert("Please select a product first.");
+        }
+        else {
+            console.log("handle button", productId, discountPercentage);
+            SalesManagerServices.setDiscountToProduct(productId, discountPercentage).then(
+                response => {
+                    this.setState({
+                        setDiscountResponse: response.data
+                    });
+                },
+                error => {
+                    this.setState({
+                        setDiscountResponse:
+                            (error.response && error.response.data) ||
+                            error.message ||
+                            error.toString()
+                    });
+                }
+            ).then(
+                () => {
+                    alert(this.state.setDiscountResponse);
+                }
+            );
+        }
     }
 
     render() {

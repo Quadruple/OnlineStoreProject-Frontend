@@ -46,10 +46,7 @@ class SalesManager extends Component {
                             <div class="nav-collapse">
                                 <ul class="nav">
                                     <li ><a href="/Home">Home	</a></li>
-                                    <li class="active"><a href="index.html">Manage</a></li>
-                                    <form onSubmit={this.searchCoffeeMachines} class="navbar-search pull-left">
-                                        <input type="text" placeholder="Search" class="search-query span2" onChange={this.handleSearchBarChange}></input>
-                                    </form>
+                                    <li class="active"><a   >Management</a></li>
                                     <ul class="nav pull-right"></ul>
 
                                 </ul>

@@ -25,23 +25,36 @@ class Category extends Component {
     constructor(props) {
         super(props);
 
-        this.printCategory = this.printCategory.bind(this);
-
         this.state = {
             categories: []
         };
+
+        this.handleCategoryClick = this.handleCategoryClick.bind(this);
     }
 
-    printCategory = item => 
+    handleCategoryClick = item => 
     {
-        console.log("A category clicked:",  item);
+        CategoryServices.getProductsOfCategory(item.id).then(
+            response => {
+                console.log(response.data);
+                let productsOfCategory = [];
+                for(var i = 0; i < response.data.length; i++)
+                {
+                    productsOfCategory.push(response.data[i].product);
+                }
+                this.props.categoryClickHandler(productsOfCategory);
+            },
+            error => {
+                this.props.categoryClickHandler(error);
+            }
+        );
     }
 
     render() {
         return (
             <div>
                 {this.state.categories.map((item, index) => (
-                    <li><a align="left" onClick={() => this.printCategory(item)} ><span class="icon-chevron-right"></span>{item.categoryName}</a></li>
+                    <li><a align="left" onClick={() => this.handleCategoryClick(item)} ><span class="icon-chevron-right"></span>{item.categoryName}</a></li>
                 ))}
             </div>
         )

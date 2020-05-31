@@ -75,7 +75,7 @@ class CoffeeMachineObjects extends Component {
             <div>
                 {console.log("Coffee Machine Objects: ", this.props.coffeemachineobjects)}
                 {this.props.coffeemachineobjects.map((item, index) => (
-                    <li class="span4">
+                    <li class="span4" style={{marginLeft: 0, marginRight: 20, marginBottom: 20}}>
                         <div class="thumbnail">
                             <a class="zoomTool" title="add to cart"><span class="icon-search"></span> QUICK VIEW</a>
                             <a href="product_details.html"><img src={this.getProductPicture(item.id)} alt=""></img></a>
@@ -84,7 +84,7 @@ class CoffeeMachineObjects extends Component {
                                 <h4>
                                     <a class="defaultBtn" title="Click to see product details" onClick={() => this.showProductDetails(index)}><span class="icon-zoom-in"></span></a>
                                     <a class="shopBtn" title="add to cart"><span class="icon-plus" onClick={() => this.addSelectedProductToCart(index)}></span></a>
-                                    <span class="pull-right">{item.price}$</span>
+                                    {item.discounted ? <span class="pull-right" style={{ borderColor: "" }}> {item.discountedPrice}$</span> : <span class="pull-right">{item.price}$</span>}
                                 </h4>
                             </div>
                         </div>

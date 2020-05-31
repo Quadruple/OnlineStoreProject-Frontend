@@ -56,7 +56,7 @@ class SetProductDiscount extends Component {
     render() {
         return (
             <div>
-                <select value={this.state.selectedProduct} onChange={e => this.handleDropdownProductSelection(e.target.value)}> 
+                <select onChange={e => this.handleDropdownProductSelection(e.target.value)}> 
                     <option>Please select a product</option>
                     {this.state.allProducts.map((product) => <option key={product.id} value={product.name}>{product.name}</option>)}
                 </select>
