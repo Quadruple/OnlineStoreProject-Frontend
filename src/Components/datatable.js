@@ -1,34 +1,47 @@
-import 'C:/Users/atama/Desktop/online-store-project/node_modules/datatables.net-dt/css/jquery.dataTables.css'
+import 'C:/Users/Berk Uzalp/Desktop/frontend/node_modules/datatables.net-dt/css/jquery.dataTables.css'
 import React, { Component } from 'react'
-const $ = require('jquery')
+import pmanagerService from '../services/pmanager.service'
+const $=require('jquery')
 $.DataTable = require('datatables.net')
 
-export class DTable extends Component {
-    componentDidMount() {
-        console.log(this.props.data);
+export class Dtable extends Component
+{
+    componentDidMount(){
+        
+        this.$el=$(this.el)
+        var x=this.$el.DataTable({
 
-        this.$el = $(this.el)
-        var x = this.$el.DataTable({
-            columns: [{ title: "Full name", }, { title: "E-mail" }, { title: "Address" }, { title: "Product Name" },
-            { title: "Price" }, { title: "Warranty Status" }, { title: "Payment Date" }, { title: "Quantity" }],
+            
+            columns:[{title:"Name",},{title:"Description"},{title:"Modal Number"},{title:"Distribution Info"},{title:"Warrant Status"},{title:"Stock"},{title:"Price"},{title:" "}],
 
-            data: this.props.data.map((item, index) => (
+        data:this.props.data.map((item, index) => (
+        
+        ([item.name,item.description,item.modal,item.distribution_info,item.Warrant_status,item.stock,item.price,'<button class="btn btn-mini pull-right" id='+item.id+'>Delete</button>'])
+        
+        
+        ))
 
-                ([item.user.fullname, item.user.email, item.user.address, item.product.name,
-                item.product.discountedPrice, item.product.warrantyStatus, item.paymentDate,
-                item.quantity])))
+        }
+        )
 
-        });
+        this.$el.on( 'click', 'button', function () {
+            var data = x.row( $(this).parents('tr') ).data();
+            pmanagerService.DeleteItem(x.$(this).attr('id'));
+        } );
+
+       
+    }
+    handleDeleteButton = (ProductId) => {
+        pmanagerService.DeleteItem(ProductId);
     }
 
+    render(){
 
-    render() {
+        return <div style={{marginLeft : "10px"}}>
+            <table className="display" width="100%" ref={el => this.el=el}></table>
 
-        return (
-            <div style={{marginLeft : "10px"}}>
-                <table className="display" width="100%" ref={el => this.el = el}></table>
-            </div>
-        )
+
+        </div>
     }
 
 }

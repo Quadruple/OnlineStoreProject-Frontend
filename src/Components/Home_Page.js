@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../style.css';
+import ReactDOM from 'react-dom'
 import '../assets/font-awesome/css/font-awesome.css';
 import '../assets/css/bootstrap.css';
 import "../services/products.service";
@@ -82,6 +83,9 @@ class Home_Page extends Component {
                 }
             );
         }
+    var element=<button class="btn btn-mini pull-right" >A</button>;
+        
+    ReactDOM.render(element, document.getElementById('buttonholder')); 
     }
 
     redirectToCart = () => {
@@ -148,6 +152,7 @@ class Home_Page extends Component {
                     </div>
                     <div class="well well-small">
                         <h3><a class="btn btn-mini pull-right" title="View more" onClick={() => {this.redirectToCart()}}>Go To Cart<span class="icon-plus"></span></a> Featured Products  </h3>
+                        <div id="buttonholder"> </div>
                         <hr class="soften" />
                         <div class="row-fluid">
                             <ul class="thumbnails">

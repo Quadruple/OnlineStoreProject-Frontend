@@ -1,22 +1,35 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import '../style.css';
 import '../assets/font-awesome/css/font-awesome.css';
 import '../assets/css/bootstrap.css';
 import "../services/products.service";
-import ProductsService from '../services/products.service';
-import Category from './Category'
-import CoffeeMachineObjects from './CoffeeMachineObjects'
+import ItemAdder from '../Components/itemadder';
+import CatAdder from '../Components/CategoryAdder';
+import ProductManaging from '../Components/ProductManaging';
+import ProductManagingE from '../Components/ProductManagingE';
+import pmanagerService from '../services/pmanager.service'
+import productsService from '../services/products.service';
+import {Dtable} from './datatable.js'
 
 class ProductManagerPage extends Component {
+   
     constructor(props) {
+        
         super(props);
-
+    
+        this.handleDeleteButton=this.handleDeleteButton.bind(this);
         
 
         this.state = {
             searchString: "",
+            Products:[{id:1,description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"}]
+
 
         };
+    }
+    handleDeleteButton = (ProductId) => {
+        pmanagerService.DeleteItem(ProductId);
     }
 
     handleSearchBarChange = (event) => {
@@ -24,6 +37,35 @@ class ProductManagerPage extends Component {
             searchString: event.target.value
         });
     }
+    handleMenu1= (event) =>{
+        var element=<ItemAdder></ItemAdder>;
+        ReactDOM.render(element, document.getElementById('forms'));
+        document.getElementById('sidebar').style.height="700px";
+    }
+    handleMenu2= (event) =>{
+        var element=<ProductManaging ></ProductManaging>;
+        
+        ReactDOM.render(element, document.getElementById('forms'));
+        document.getElementById('sidebar').style.height="250px";
+    }    
+    handleMenu3= (event) =>{
+        var element=<ProductManagingE ></ProductManagingE>;
+        
+        ReactDOM.render(element, document.getElementById('forms'));
+        document.getElementById('sidebar').style.height="250px";
+    }
+    handleMenu4= (event) =>{
+        var element=<CatAdder ></CatAdder>;
+        
+        ReactDOM.render(element, document.getElementById('forms'));
+        document.getElementById('sidebar').style.height="250px";
+    }
+    handleMenu5= (event) =>{
+        var element=<CatAdder ></CatAdder>;
+        
+        ReactDOM.render(element, document.getElementById('forms'));
+        document.getElementById('sidebar').style.height="250px";
+    }                  
 
 
 
@@ -41,10 +83,10 @@ class ProductManagerPage extends Component {
                             <div class="nav-collapse">
                                 <ul class="nav">
                                     <li ><a href="/Home">Home	</a></li>
-                                    <li class="active"><a href="index.html">Manage</a></li>
-                                    <form onSubmit={this.searchCoffeeMachines} class="navbar-search pull-left">
-                                        <input type="text" placeholder="Search" class="search-query span2" onChange={this.handleSearchBarChange}></input>
-                                    </form>
+                                    <li><a href="/Profile">Profile</a></li>
+
+                                    <li class="active"><a href="/ProductManager">Manage</a></li>
+                                    
                                     <ul class="nav pull-right"></ul>
 
                                 </ul>
@@ -53,50 +95,36 @@ class ProductManagerPage extends Component {
                     </div>
                 </div>
                 <div class="row">
-                    <div id="sidebar" class="span3" style={{ height: 1600, width: 200 }}>
+                    <div id="sidebar" class="span3" style={{ height: 700, width: 200, marginRight: 50 }}>
                         <div class="well well-small">
-                            <div align="left" ><b>Manager Menu</b></div><br></br>
+                            <div align="left" ><b>Manager Menu</b></div>
+                            <hr class="soften" />
                             <ul class="nav nav-list" id="insertCategories">
+                                <li style={{borderStyle: "double"}} onClick={this.handleMenu1}>
+                                <a >-Add New Product</a>
+                                </li>
+                                <li style={{borderStyle: "double"}} onClick={this.handleMenu4}>
+                                <a >-Add New Category</a>
+                                </li>                                
+                                <li style={{borderStyle: "double"}}onClick={this.handleMenu2}>
+                                <a >-Display Products </a>
+                                </li>
+                                <li style={{borderStyle: "double"}}onClick={this.handleMenu3}>
+                                <a >-Edit Products </a>
+                                </li>
+                                <li style={{borderStyle: "double"}}onClick={this.handleMenu5}>
+                                <a >-Review Management </a>
+                                </li>                                                                 
                                 <li>
-                                <a>Add New Product</a>
-                                </li><br></br>
-                                <li>
-                                <a>Manage Quantitys </a>
-                                </li><br></br>
-                                <li>
-                                <a>User Management </a>
                                 </li><br></br>
                             </ul>
                         </div>
                     </div>
                     <div class="well well-small">
-                        <h3> Product Management </h3>
+                        <h3> Product Management </h3><div id="buttonholder"style={{float:"right"}}></div>
                         <hr class="soften" />
-                        <div>Welcome Managet to your manage page.<br></br>In here you can:<br></br> add new products increase the quantity of existing item, Manage users setting</div>
-                        <div>
-                            <form>
-                                <h3>Item Addition Form</h3>
-                                <label for="id">ID:</label>
-                                <input type="text" name="id"></input>
-                                <label for="description">Description:</label>
-                                <input type="text" name="description"></input><br></br>
-                                <label for="distribution">distribution_info:</label>
-                                <input type="text" name="distribution"></input><br></br>
-                                <label for="modal">modal_number:</label>
-                                <input type="text" name="modal"></input><br></br>
-                                <label for="name">Name:</label>
-                                <input type="text" name="name"></input><br></br>
-                                <label for="price">Price:</label>
-                                <input type="number" name="price"></input><br></br>
-                                <label for="stock">quantity_stock:</label>
-                                <input type="number" name="stock"></input> <br></br>                          
-                                <label for="warrant">Warrant_status:</label>
-                                <input type="text" name="warrant"></input><br></br>
-                                <br></br>
-                                    <button type="submit" class="shopBtn">Add Item</button>
-</form>
+                        <div  id="forms">Welcome Managet to your manage page.<br></br>In here you can:<br></br> add new products increase the quantity of existing item, Manage users setting</div>
 
-                        </div>
                     
                     </div>
                 </div>

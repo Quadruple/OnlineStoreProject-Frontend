@@ -1,0 +1,72 @@
+import React, { Component } from 'react';
+import {Dtable} from './datatable.js'
+import {DtableE} from './datatableE.js'
+import pmanagerService from '../services/pmanager.service'
+import ReactDOM from 'react-dom'
+
+
+class ProductManagingE extends Component {
+    
+    
+    /*componentDidMount() {
+       pmanagerService.getProducts().then(
+            response => {
+                this.setState({
+                    Products: response.data
+                });
+            },
+            error => {
+                
+            }
+        )}*/
+    constructor(props) {
+        super(props);
+        this.handleDeleteButton=this.handleDeleteButton.bind(this);
+        
+
+        this.state = {
+            Products:[{id:1,description:"z",distribution_info:"aaa",modal:"sdfg",name:"something",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",name:"something",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",name:"something",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",name:"something",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"}],
+            tablemode:0
+
+
+        };
+    }
+    editmode=(data)=>{
+        if(this.state.tablemode==0)
+        {
+            this.state.tablemode=1;
+            var element=<DtableE data={data}></DtableE>;
+        
+            ReactDOM.render(element, document.getElementById('here'));                        
+
+
+        }
+        else if(this.state.tablemode==1)
+        {
+
+            this.state.tablemode=0;
+            var element=<Dtable data={data}></Dtable>;
+        
+            ReactDOM.render(element, document.getElementById('here'));            
+
+        }
+
+    }
+    handleDeleteButton = (ProductId) => {
+        pmanagerService.DeleteItem(ProductId);
+    }
+
+
+
+    render() {
+        return(<div id="here" style={{textAlign: 'right'}}>
+            <button id="buttonholder"style={{float:"right"}}></button>
+            <DtableE data={this.state.Products}></DtableE>
+            
+
+
+        </div>)
+            
+        }
+    }
+export default ProductManagingE
