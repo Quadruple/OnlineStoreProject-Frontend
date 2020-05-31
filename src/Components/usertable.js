@@ -1,4 +1,4 @@
-import 'C:/Users/Berk Uzalp/Desktop/frontend/node_modules/datatables.net-dt/css/jquery.dataTables.css'
+import 'C:/Users/atama/Desktop/online-store-project/node_modules/datatables.net-dt/css/jquery.dataTables.css'
 import React, { Component } from 'react'
 import pmanagerService from '../services/pmanager.service'
 const $=require('jquery')

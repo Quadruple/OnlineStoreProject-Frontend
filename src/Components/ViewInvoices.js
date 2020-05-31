@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import SalesManagerServices from '../services/salesmanager.service'
-import {DTable} from './datatable'
+import {DTable} from './datatableSalesManager'
 
 class ViewInvoices extends Component 
 {
