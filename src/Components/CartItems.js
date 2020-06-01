@@ -28,10 +28,6 @@ class CartItems extends Component {
             () => {
                 console.log("cartitems", this.state.cartitems);
             }
-        ).then(
-            () => {
-                this.getQuantityOfProduct();
-            }
         );
     }
 
@@ -41,14 +37,12 @@ class CartItems extends Component {
         this.state =
         {
             cartitems: [],
-            quantity: [],
             decrementResponse: "",
             removeResponse: "",
             incrementResponse: ""
         };
 
         this.getProductPicture = this.getProductPicture.bind(this);
-        this.getQuantityOfProduct = this.getQuantityOfProduct.bind(this);
         this.decrementQuantityofProduct = this.decrementQuantityofProduct.bind(this);
         this.removeProductFromUsersCart = this.removeProductFromUsersCart.bind(this);
     }
@@ -151,28 +145,6 @@ class CartItems extends Component {
         );
     }
 
-    getQuantityOfProduct = () => {
-        let currentUser = AuthService.getCurrentUser();
-        this.state.cartitems.map((item, index) => (
-            CartService.getUserQuantityOfProduct(currentUser.id, item.id).then(
-                response => {
-                    console.log(response.data);
-                    this.setState({
-                        quantity: this.state.quantity.concat(response.data[0].quantity)
-                    });
-                },
-                error => {
-                    this.setState({
-                        quantity:
-                            (error.response && error.response.data) ||
-                            error.message ||
-                            error.toString()
-                    });
-                }
-            )
-        ));
-    }
-
     render() {
         return (
             <div>
@@ -192,19 +164,19 @@ class CartItems extends Component {
                     <tbody>
                         {this.state.cartitems.map((item, index) => (
                             <tr>
-                                <div><td><img width="100" src={this.getProductPicture(item.id)} alt=""></img></td></div>
-                                <td>{item.name}</td>
-                                <td>{item.description}</td>
-                                <td> {item.distributorInfo} </td>
-                                <td><span class="shopBtn"><span>{item.warrantyStatus}</span></span> </td>
-                                <td>{item.price}$</td>
+                                <div><td><img width="100" src={this.getProductPicture(item.product.id)} alt=""></img></td></div>
+                                <td>{item.product.name}</td>
+                                <td>{item.product.description}</td>
+                                <td> {item.product.distributorInfo} </td>
+                                <td><span class="shopBtn"><span>{item.product.warrantyStatus}</span></span> </td>
+                                <td>{item.product.price}$</td>
                                 <td>
-                                    <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={this.state.quantity[index]} readOnly></input>
+                                    <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={item.quantity} readOnly></input>
                                     <div class="input-append">
-                                        <button class="btn btn-mini" type="button" onClick={() => this.decrementQuantityofProduct(item.id)}>-</button><button class="btn btn-mini" type="button" onClick={() => this.incrementQuantityofProduct(item.id)}> + </button><button class="btn btn-mini btn-danger" type="button" onClick={() => this.removeProductFromUsersCart(item.id)}><span class="icon-remove"></span></button>
+                                        <button class="btn btn-mini" type="button" onClick={() => this.decrementQuantityofProduct(item.product.id)}>-</button><button class="btn btn-mini" type="button" onClick={() => this.incrementQuantityofProduct(item.product.id)}> + </button><button class="btn btn-mini btn-danger" type="button" onClick={() => this.removeProductFromUsersCart(item.product.id)}><span class="icon-remove"></span></button>
                                     </div>
                                 </td>
-                                <td>{parseInt(this.state.quantity[index]) * parseInt(item.price)}$</td>
+                                <td>{parseInt(item.quantity) * parseInt(item.product.price)}$</td>
                             </tr>
                         ))}
                     </tbody>

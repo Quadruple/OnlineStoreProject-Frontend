@@ -99,8 +99,17 @@ class Home_Page extends Component {
     }
 
     handleHeaderManagementButton = () => {
-        this.props.history.push("/salesmanager");
-        window.location.reload();
+        if(AuthService.getCurrentUser().roles[0] == "ROLE_ADMIN")
+        {
+            this.props.history.push("/salesmanager");
+            window.location.reload();
+        }
+        else if(AuthService.getCurrentUser().roles[0] == "ROLE_MODERATOR")
+        {
+            this.props.history.push("/productmanager");
+            window.location.reload();
+        }
+        
     }
 
     categoryClickStateHandler = (categoryProducts) => {

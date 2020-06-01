@@ -63,7 +63,7 @@ class EvaluateReviews extends Component
     render() {
         return(
             <div>
-                {this.state.pendingReviewsList.map((item, index) => (
+                {this.state.pendingReviewsList.length > 0 ? this.state.pendingReviewsList.map((item, index) => (
                     <div>
                         <p>{item.product.name}</p>
                         <p>{item.reviewDate}</p>
@@ -71,7 +71,7 @@ class EvaluateReviews extends Component
                         <button class="shopBtn" onClick={() => this.handleReviewEvaluationButtons(item.reviewId, true)} style={{marginRight: 10}}>Accept Review</button>
                         <button class="shopBtn" onClick={() => this.handleReviewEvaluationButtons(item.reviewId, false)}>Reject Review</button>
                     </div>
-                ))}
+                )) : <p>There are no reviews to evaluate.</p>}
             </div>
         )
     }

@@ -10,7 +10,8 @@ import ProductManaging from '../Components/ProductManaging';
 import ProductManagingE from '../Components/ProductManagingE';
 import pmanagerService from '../services/pmanager.service'
 import productsService from '../services/products.service';
-import {Dtable} from './datatable.js'
+import {Dtable} from './datatable.js';
+import EvaluateReviews from '../Components/EvaluateReviews'
 
 class ProductManagerPage extends Component {
    
@@ -23,7 +24,7 @@ class ProductManagerPage extends Component {
 
         this.state = {
             searchString: "",
-            Products:[{id:1,description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"}]
+            Products:[]
 
 
         };
@@ -61,10 +62,10 @@ class ProductManagerPage extends Component {
         document.getElementById('sidebar').style.height="250px";
     }
     handleMenu5= (event) =>{
-        var element=<CatAdder ></CatAdder>;
+        var element=<EvaluateReviews ></EvaluateReviews>;
         
         ReactDOM.render(element, document.getElementById('forms'));
-        document.getElementById('sidebar').style.height="250px";
+        document.getElementById('sidebar').style.height="700px";
     }                  
 
 

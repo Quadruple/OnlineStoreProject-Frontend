@@ -66,8 +66,8 @@ class ProductManagingE extends Component {
 
 
     render() {
-        return(<div id="here" style={{textAlign: 'right'}}>
-            <button id="buttonholder"style={{float:"right"}}></button>
+        return(<div id="here" style={{textAlign: 'left'}}>
+            <button id="buttonholder"style={{float:"left"}}></button>
             {this.state.Products != "" ? <DtableE data={this.state.Products}></DtableE> : null}
             
 

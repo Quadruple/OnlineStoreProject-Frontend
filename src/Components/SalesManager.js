@@ -12,7 +12,7 @@ class SalesManager extends Component {
         this.state = {
             showSetDiscountMenu: true,
             showInvoicesMenu: false,
-            showEvaluateReviews: false
+            showDeliveriesPage: false
         }
 
         this.renderCorrespondingMenu = this.renderCorrespondingMenu.bind(this);
@@ -24,7 +24,6 @@ class SalesManager extends Component {
             this.setState({
                 showSetDiscountMenu: true,
                 showInvoicesMenu: false,
-                showEvaluateReviews: false,
                 showDeliveriesPage: false
             });
         }
@@ -33,16 +32,6 @@ class SalesManager extends Component {
             this.setState({
                 showSetDiscountMenu: false,
                 showInvoicesMenu: true,
-                showEvaluateReviews: false,
-                showDeliveriesPage: false
-            });
-        }
-        else if(menuId == 2)
-        {
-            this.setState({
-                showSetDiscountMenu: false,
-                showInvoicesMenu: false,
-                showEvaluateReviews: true,
                 showDeliveriesPage: false
             });
         }
@@ -51,7 +40,6 @@ class SalesManager extends Component {
             this.setState({
                 showSetDiscountMenu: false,
                 showInvoicesMenu: false,
-                showEvaluateReviews: false,
                 showDeliveriesPage: true
             });
         }
@@ -89,9 +77,6 @@ class SalesManager extends Component {
                                 </li><br></br>
                                 <li>
                                     <a onClick={() => this.renderCorrespondingMenu(1)}>View All Purchases</a>
-                                </li><br></br>
-                                <li>
-                                    <a onClick={() => this.renderCorrespondingMenu(2)}>Evaluate Reviews</a>
                                 </li><br></br>
                                 <li>
                                     <a>View Revenues in Between Dates</a>

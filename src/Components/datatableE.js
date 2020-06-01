@@ -16,7 +16,7 @@ export class DtableE extends Component
 
         data:this.props.data.map((item, index) => (
         
-        ([item.name,'<input type="text" value='+item.description+'>'+item.description+'</input>','<input type="text" value='+item.modelNumber+'>'+item.modelNumber+'</input>','<input type="text" value='+item.distributorInfo+'>'+item.distributorInfo+'</input>','<input type="text" value='+item.warrantyStatus+'>'+item.warrantyStatus+'</input>','<input type="number" value='+item.quantityStocks+'>'+item.quantityStocks+'</input>','<input type="number" value='+item.price+'>'+item.price+'</input>','<button class="btn btn-mini pull-right" id='+item.id+'>Update</button>'])
+        ([item.name,'<input type="text" style="border: ridge" value='+item.description+'>'+item.description+'</input>','<input type="text" style="border: ridge" value='+item.modelNumber+'>'+item.modelNumber+'</input>','<input type="text" style="border: ridge" value='+item.distributorInfo+'>'+item.distributorInfo+'</input>','<input type="text" style="border: ridge" value='+item.warrantyStatus+'>'+item.warrantyStatus+'</input>','<input type="number" style="border: ridge" value='+item.quantityStocks+'>'+item.quantityStocks+'</input>','<input type="number" style="border: ridge" value='+item.price+'>'+item.price+'</input>','<button class="btn btn-mini pull-right" id='+item.id+'>Update</button>'])
         
         
         ))
@@ -30,7 +30,11 @@ export class DtableE extends Component
             var data = x.row( $(this).parents('tr') ).data();
             var index=x.row( this ).index();
            
-            pmanagerService.UpdateItem(x.$(this).attr('id'),x.cell(index,1).nodes().to$().find('input').val(),x.cell(index,2).nodes().to$().find('input').val(),x.cell(index,3).nodes().to$().find('input').val(),x.cell(index,4).nodes().to$().find('input').val(),data[0],x.cell(index,5).nodes().to$().find('input').val(),x.cell(index,6).nodes().to$().find('input').val());
+            pmanagerService.UpdateItem(x.$(this).attr('id'),x.cell(index,1).nodes().to$().find('input').val(),x.cell(index,3).nodes().to$().find('input').val(),x.cell(index,2).nodes().to$().find('input').val(),x.cell(index,4).nodes().to$().find('input').val(),data[0],x.cell(index,5).nodes().to$().find('input').val(),x.cell(index,6).nodes().to$().find('input').val()).then(
+                () => {
+                    window.location.reload();
+                }
+            );
         } );        
     }
 
