@@ -8,24 +8,31 @@ import ReactDOM from 'react-dom'
 class ProductManagingE extends Component {
     
     
-    /*componentDidMount() {
-       pmanagerService.getProducts().then(
+    componentDidMount() {
+        pmanagerService.getProducts().then(
             response => {
                 this.setState({
                     Products: response.data
                 });
             },
             error => {
-                
+                this.setState({
+                    Products: error
+                });
             }
-        )}*/
+        ).then(
+            () => {
+                console.log("Products:", this.state.Products);
+            }
+        )
+    }
     constructor(props) {
         super(props);
         this.handleDeleteButton=this.handleDeleteButton.bind(this);
         
 
         this.state = {
-            Products:[{id:1,description:"z",distribution_info:"aaa",modal:"sdfg",name:"something",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",name:"something",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",name:"something",distribution_info:"aaa",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"},{id:"x",description:"z",distribution_info:"aaa",name:"something",modal:"sdfg",Warrant_status:"year",stock:"10",price:"111"}],
+            Products:[],
             tablemode:0
 
 
@@ -61,7 +68,7 @@ class ProductManagingE extends Component {
     render() {
         return(<div id="here" style={{textAlign: 'right'}}>
             <button id="buttonholder"style={{float:"right"}}></button>
-            <DtableE data={this.state.Products}></DtableE>
+            {this.state.Products != "" ? <DtableE data={this.state.Products}></DtableE> : null}
             
 
 

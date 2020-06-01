@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import SetProductDiscount from '../Components/SetProductDiscount'
 import ViewInvoices from '../Components/ViewInvoices'
+import EvaluateReviews from '../Components/EvaluateReviews'
+import SetDeliveries from '../Components/SetDeliveries'
 
 class SalesManager extends Component {
 
@@ -9,7 +11,8 @@ class SalesManager extends Component {
 
         this.state = {
             showSetDiscountMenu: true,
-            showInvoicesMenu: false
+            showInvoicesMenu: false,
+            showEvaluateReviews: false
         }
 
         this.renderCorrespondingMenu = this.renderCorrespondingMenu.bind(this);
@@ -20,14 +23,36 @@ class SalesManager extends Component {
         {
             this.setState({
                 showSetDiscountMenu: true,
-                showInvoicesMenu: false
+                showInvoicesMenu: false,
+                showEvaluateReviews: false,
+                showDeliveriesPage: false
             });
         }
         else if(menuId == 1)
         {
             this.setState({
                 showSetDiscountMenu: false,
-                showInvoicesMenu: true
+                showInvoicesMenu: true,
+                showEvaluateReviews: false,
+                showDeliveriesPage: false
+            });
+        }
+        else if(menuId == 2)
+        {
+            this.setState({
+                showSetDiscountMenu: false,
+                showInvoicesMenu: false,
+                showEvaluateReviews: true,
+                showDeliveriesPage: false
+            });
+        }
+        else if(menuId == 3)
+        {
+            this.setState({
+                showSetDiscountMenu: false,
+                showInvoicesMenu: false,
+                showEvaluateReviews: false,
+                showDeliveriesPage: true
             });
         }
     }
@@ -55,7 +80,7 @@ class SalesManager extends Component {
                     </div>
                 </div>
                 <div class="row">
-                    <div id="sidebar" class="span3" style={{ height: 310, width: 200 }}>
+                    <div id="sidebar" class="span3" style={{ height: 10000, marginRight: 50 }}>
                         <div class="well well-small">
                             <div align="left" ><b>Manager Menu</b></div><br></br>
                             <ul class="nav nav-list" id="insertCategories">
@@ -66,10 +91,13 @@ class SalesManager extends Component {
                                     <a onClick={() => this.renderCorrespondingMenu(1)}>View All Purchases</a>
                                 </li><br></br>
                                 <li>
+                                    <a onClick={() => this.renderCorrespondingMenu(2)}>Evaluate Reviews</a>
+                                </li><br></br>
+                                <li>
                                     <a>View Revenues in Between Dates</a>
                                 </li><br></br>
                                 <li>
-                                    <a>Set Deliveries of Customers</a>
+                                    <a onClick={() => this.renderCorrespondingMenu(3)}>Set Deliveries of Customers</a>
                                 </li><br></br>
                             </ul>
                         </div>
@@ -84,6 +112,12 @@ class SalesManager extends Component {
                            }
                            {
                                this.state.showInvoicesMenu ? <ViewInvoices /> : null
+                           }
+                           {
+                               this.state.showEvaluateReviews ? <EvaluateReviews /> : null
+                           }
+                           {
+                               this.state.showDeliveriesPage ? <SetDeliveries /> : null
                            }
                         </div>
                     </div>

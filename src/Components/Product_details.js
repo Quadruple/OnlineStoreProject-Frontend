@@ -7,6 +7,7 @@ import ProductsService from '../services/products.service';
 import Category from './Category'
 import AuthService from '../services/auth.service'
 import CartService from '../services/cart.service'
+import ReviewsService from '../services/reviews.service'
 import CoffeeMachineObjects from './CoffeeMachineObjects'
 import mrcoffee from '../assets/coffeemachinesforsale/mrcoffee.jpg'
 import nespresso from '../assets/coffeemachinesforsale/nespresso.jpg'
@@ -20,6 +21,26 @@ class Product_Details extends Component {
         this.setState({
             productInfo: productInfo
         });
+
+        ReviewsService.getReviewsOfProduct(productInfo.id).then(
+            response => {
+                this.setState({
+                    productReviews: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    productReviews:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log("product reviews", this.state.productReviews);
+            }
+        );
     }
 
     constructor(props) {
@@ -29,13 +50,17 @@ class Product_Details extends Component {
             searchString: "",
             coffeeMachineResults: "",
             productInfo: [],
-            addToCartResult: []
-        };  
-        
+            addToCartResult: [],
+            productReviews: [],
+            submitReviewResults: []
+        };
+
         this.handleAddToCartButton = this.handleAddToCartButton.bind(this);
         this.getProductPicture = this.getProductPicture.bind(this);
+        this.handleReviewSubmitButton = this.handleReviewSubmitButton.bind(this);
+        this.handleHeaderHomeButton = this.handleHeaderHomeButton.bind(this);
     }
-    
+
     getProductPicture = (pictureId) => {
         console.log(pictureId);
         if (pictureId === 1) {
@@ -88,6 +113,46 @@ class Product_Details extends Component {
         );
     }
 
+    handleReviewSubmitButton = (productId, reviewText) => {
+        if (!reviewText) {
+            alert("Please write a review to submit.");
+        }
+        else {
+            var currentUser = AuthService.getCurrentUser();
+            ReviewsService.submitReview(productId, currentUser.id, reviewText).then(
+                response => {
+                    this.setState({
+                        submitReviewResults: response.data
+                    });
+                },
+                error => {
+                    this.setState({
+                        submitReviewResults:
+                            (error.response && error.response.data) ||
+                            error.message ||
+                            error.toString()
+                    });
+                }
+            ).then(
+                () => {
+                    console.log(this.state.submitReviewResults);
+                    alert("Your review submitted successfully.");
+                    window.location.reload(false);
+                }
+            );
+        }
+    }
+
+    handleHeaderHomeButton = () => {
+        this.props.history.push("/home");
+        window.location.reload();
+    }
+
+    handleHeaderManagementButton = () => {
+        this.props.history.push("/salesmanager");
+        window.location.reload();
+    }
+
     render() {
         return (
             <div >
@@ -101,8 +166,8 @@ class Product_Details extends Component {
                             </a>
                             <div class="nav-collapse">
                                 <ul class="nav">
-                                    <li class="active"><a href="index.html">Home	</a></li>
-                                    <li><a href="index.html">Management	</a></li>
+                                    <li><a onClick={() => this.handleHeaderHomeButton()}>Home	</a></li>
+                                    <li><a onClick={() => this.handleHeaderManagementButton()}>Management	</a></li>
                                     <ul class="nav pull-right"></ul>
 
                                 </ul>
@@ -111,11 +176,11 @@ class Product_Details extends Component {
                     </div>
                 </div>
                 <div class="row">
-                    <div style={{marginLeft: 40, marginRight: 40}} class="well well-small">
+                    <div style={{ marginLeft: 40, marginRight: 40 }} class="well well-small">
                         <h3><a class="btn btn-mini pull-right" href="/cart" title="View more">Go To Cart<span class="icon-plus"></span></a> Product Details  </h3>
                         <hr class="soften" />
                         <div class="row-fluid">
-                            <img  class="span2" src={this.getProductPicture(this.state.productInfo.id)}></img>
+                            <img class="span2" src={this.getProductPicture(this.state.productInfo.id)}></img>
                             <div class="span7">
                                 <h3>Name of the Item: {this.state.productInfo.name}</h3>
                                 <hr class="soft" />
@@ -123,7 +188,7 @@ class Product_Details extends Component {
                                 <form class="form-horizontal qtyFrm">
                                     <div class="control-group">
                                         {this.state.productInfo.discounted ? <label class="control-label"><span>Discounted! ${this.state.productInfo.discountedPrice}</span></label> : <label class="control-label"><span>${this.state.productInfo.price}</span></label>}
-                                        
+
                                         <div class="controls">
                                             <label class="control-label"><span>Quantity:</span></label>
                                             <input id="quantityInput" class="span1" style={{ width: 40 }} placeholder="1" size="16" type="text" value={1}></input>
@@ -144,6 +209,16 @@ class Product_Details extends Component {
                                     <button class="shopBtn" onClick={() => this.handleAddToCartButton(this.state.productInfo.id, document.getElementById("quantityInput").value)}><span class=" icon-shopping-cart"></span> Add to cart</button>
                                 </form>
                                 <p>Reviews:</p>
+                                <br></br>
+                                {this.state.productReviews.map((item, index) => (
+                                    <div>
+                                        <p>{item.reviewDate}</p>
+                                        <p>{item.user.username}:</p>
+                                        <p>{item.reviewText}</p>
+                                    </div>
+                                ))}
+                                <input id="reviewInput" style={{ width: 800, height: 50 }} size="1000" type="text"></input>
+                                <button class="shopBtn" onClick={() => this.handleReviewSubmitButton(this.state.productInfo.id, document.getElementById("reviewInput").value)}>Submit Review</button>
                             </div>
                         </div>
                     </div>

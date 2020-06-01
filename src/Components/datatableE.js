@@ -16,7 +16,7 @@ export class DtableE extends Component
 
         data:this.props.data.map((item, index) => (
         
-        ([item.name,'<input type="text" value='+item.description+'>'+item.description+'</input>','<input type="text" value='+item.modal+'>'+item.modal+'</input>','<input type="text" value='+item.distribution_info+'>'+item.distribution_info+'</input>','<input type="text" value='+item.Warrant_status+'>'+item.Warrant_status+'</input>','<input type="number" value='+item.stock+'>'+item.stock+'</input>','<input type="number" value='+item.price+'>'+item.price+'</input>','<button class="btn btn-mini pull-right" id='+item.id+'>Update</button>'])
+        ([item.name,'<input type="text" value='+item.description+'>'+item.description+'</input>','<input type="text" value='+item.modelNumber+'>'+item.modelNumber+'</input>','<input type="text" value='+item.distributorInfo+'>'+item.distributorInfo+'</input>','<input type="text" value='+item.warrantyStatus+'>'+item.warrantyStatus+'</input>','<input type="number" value='+item.quantityStocks+'>'+item.quantityStocks+'</input>','<input type="number" value='+item.price+'>'+item.price+'</input>','<button class="btn btn-mini pull-right" id='+item.id+'>Update</button>'])
         
         
         ))
