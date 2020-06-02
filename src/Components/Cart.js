@@ -11,13 +11,15 @@ class Cart extends Component {
     constructor(props) {
         super(props);
 
-        this.state = 
+        this.state =
         {
-            checkoutResponse: ""
+            checkoutResponse: "",
+            applyCouponResponse: []
         };
 
         this.finalizeCheckout = this.finalizeCheckout.bind(this);
         this.handleContinueShoppingButton = this.handleContinueShoppingButton.bind(this);
+        this.handleApplyCouponButton = this.handleApplyCouponButton.bind(this);
     }
 
     finalizeCheckout = () => {
@@ -53,6 +55,28 @@ class Cart extends Component {
         window.location.reload();
     }
 
+    handleApplyCouponButton = (couponString) => {
+        CartService.applyCouponIfAvailable(couponString).then(
+            response => {
+                this.setState({
+                    applyCouponResponse: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    applyCouponResponse:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log("COUPON", this.state.applyCouponResponse);
+            }
+        );
+    }
+
     render() {
         return (
             <div>
@@ -75,7 +99,7 @@ class Cart extends Component {
                     </div>
                 </div>
 
-                <div class="row" style={{marginLeft: 20, marginRight: 20}}>
+                <div class="row" style={{ marginLeft: 20, marginRight: 20 }}>
                     <div>
                         <ul class="breadcrumb">
                             <li onClick={() => this.handleContinueShoppingButton()}><a>Home</a> <span class="divider">/</span></li>
@@ -85,7 +109,21 @@ class Cart extends Component {
                             <h1>Check Out</h1>
                             <hr class="soften" />
                             <CartItems></CartItems>
-                            <a class="shopBtn btn-large"  onClick={() => this.handleContinueShoppingButton()}><span class="icon-arrow-left"></span> Continue Shopping </a>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <form class="form-inline">
+                                                <label style={{marginRight: 10}}> Coupon Code: </label>
+                                                <input id="couponstringinput" style={{marginRight: 10}} type="text" class="input-medium" placeholder="CODE"></input>
+                                                <button type="submit" class="shopBtn" onClick={() => this.handleApplyCouponButton(document.getElementById("couponstringinput").value)}> Apply Coupon</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <a class="shopBtn btn-large" onClick={() => this.handleContinueShoppingButton()}><span class="icon-arrow-left"></span> Continue Shopping </a>
                             <a class="shopBtn btn-large pull-right" onClick={() => this.finalizeCheckout()}>Checkout <span class="icon-arrow-right"></span></a>
 
                         </div>

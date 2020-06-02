@@ -7,9 +7,15 @@ const ADD_TO_CART = "http://localhost:8080/api/test/addToCart/";
 const DECREMENT_PRODUCT_QUANTITY_OF_USER = "http://localhost:8080/api/test/removeQuantityFromCart/";
 const INCREMENT_PRODUCT_QUANTITY_OF_USER = "http://localhost:8080/api/test/incrementQuantityFromCart/";
 const FINALIZE_CHECKOUT = "http://localhost:8080/api/test/finalizeCheckout/";
+const CHECK_FOR_COUPON = "http://localhost:8080/api/test/testApplyCoupon/";
 
 class CartService
 {
+    applyCouponIfAvailable(coupon_string)
+    {
+        return axios.post(CHECK_FOR_COUPON + coupon_string, { headers: authHeader() });
+    }
+
     getCheckedOutItems(userId)
     {
         return axios.get(FETCH_CHECKEDOUT_ITEMS + userId, { headers: authHeader() });
