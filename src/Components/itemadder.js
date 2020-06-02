@@ -102,7 +102,8 @@ class itemAdder extends Component {
             pmanagerService.AddItem(this.state.description, this.state.distribution_info, this.state.modal, this.state.Warrant_status, this.state.name, this.state.stock, this.state.price).then(
                 () => {
                     alert("Item successfully added");
-
+                    sessionStorage.setItem("componentnumber", 1);
+                    window.location.reload(false);
                 });
         }
     }

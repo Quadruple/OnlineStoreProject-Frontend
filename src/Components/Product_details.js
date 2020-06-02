@@ -59,6 +59,8 @@ class Product_Details extends Component {
         this.getProductPicture = this.getProductPicture.bind(this);
         this.handleReviewSubmitButton = this.handleReviewSubmitButton.bind(this);
         this.handleHeaderHomeButton = this.handleHeaderHomeButton.bind(this);
+        this.handleUsernameButtonClick = this.handleUsernameButtonClick.bind(this);
+        this.handleLogoutButton = this.handleLogoutButton.bind(this);
     }
 
     getProductPicture = (pictureId) => {
@@ -81,6 +83,12 @@ class Product_Details extends Component {
         this.setState({
             searchString: event.target.value
         });
+    }
+
+    handleLogoutButton = () => {
+        AuthService.logout();
+        this.props.history.push("/");
+        window.location.reload();
     }
 
     handleQuantityPlusButton = () => {
@@ -148,15 +156,22 @@ class Product_Details extends Component {
         window.location.reload();
     }
 
+    handleUsernameButtonClick = () => {
+        this.props.history.push("/profile");
+        window.location.reload();
+    }
+
     handleHeaderManagementButton = () => {
-        if(AuthService.getCurrentUser().roles[0] == "ROLE_ADMIN")
-        {
+        if (AuthService.getCurrentUser().roles[0] == "ROLE_ADMIN") {
             this.props.history.push("/salesmanager");
             window.location.reload();
         }
-        else if(AuthService.getCurrentUser().roles[0] == "ROLE_MODERATOR")
-        {
+        else if (AuthService.getCurrentUser().roles[0] == "ROLE_MODERATOR") {
             this.props.history.push("/productmanager");
+            window.location.reload();
+        }
+        else if (AuthService.getCurrentUser().roles[0] == "ROLE_USER") {
+            this.props.history.push("/profile");
             window.location.reload();
         }
     }
@@ -175,9 +190,11 @@ class Product_Details extends Component {
                             <div class="nav-collapse">
                                 <ul class="nav">
                                     <li><a onClick={() => this.handleHeaderHomeButton()}>Home	</a></li>
-                                    <li><a onClick={() => this.handleHeaderManagementButton()}>Management	</a></li>
-                                    <ul class="nav pull-right"></ul>
-
+                                    <li><a style={{ marginRight: 1020 }} onClick={() => this.handleHeaderManagementButton()}>Management	</a></li>
+                                    <ul class="nav pull-right">
+                                        <li onClick={() => this.handleUsernameButtonClick()}><a>{AuthService.getCurrentUser().username}</a></li>
+                                        <li onClick={() => this.handleLogoutButton()}><a>Logout	</a></li>
+                                    </ul>
                                 </ul>
                             </div>
                         </div>
@@ -193,23 +210,19 @@ class Product_Details extends Component {
                                 <h3>Name of the Item: {this.state.productInfo.name}</h3>
                                 <hr class="soft" />
 
-                                <form class="form-horizontal qtyFrm">
+                                <form class="form-vertical qtyFrm">
                                     <div class="control-group">
-                                        {this.state.productInfo.discounted ? <label class="control-label"><span>Discounted! ${this.state.productInfo.discountedPrice}</span></label> : <label class="control-label"><span>${this.state.productInfo.price}</span></label>}
-
+                                        {this.state.productInfo.discounted ? <label class="control-label"><span><b style={{ fontSize: 20 }}>Discounted! ${this.state.productInfo.discountedPrice}</b></span></label> : <label class="control-label"><span style={{ fontSize: 18 }}>${this.state.productInfo.price}</span></label>}
                                         <div class="controls">
-                                            <label class="control-label"><span>Quantity:</span></label>
-                                            <input id="quantityInput" class="span1" style={{ width: 40 }} placeholder="1" size="16" type="text" value={1}></input>
-                                            <div class="input-append">
-                                                <button class="btn btn-mini" type="button">-</button><button class="btn btn-mini" type="button"> + </button>
-                                            </div>
+                                            <label class="control-label"><span style={{ fontSize: 18 }}>Quantity:</span></label>
+                                            <input id="quantityInput" class="span1" style={{ width: 60 }} placeholder="1" size="16" type="number"></input>
                                         </div>
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label"><span>Description</span></label>
+                                        <label class="control-label"><span style={{ fontSize: 18 }}>Description</span></label>
                                         <div class="controls">
-                                            <label class="control-label"><span>{this.state.productInfo.description}</span></label>
+                                            <label class="control-label"><span style={{ fontSize: 18 }}>{this.state.productInfo.description}</span></label>
                                         </div>
                                     </div>
                                     <h4>{this.state.productInfo.quantityStocks} items in stock</h4>
@@ -217,15 +230,14 @@ class Product_Details extends Component {
                                     <button class="shopBtn" onClick={() => this.handleAddToCartButton(this.state.productInfo.id, document.getElementById("quantityInput").value)}><span class=" icon-shopping-cart"></span> Add to cart</button>
                                 </form>
                                 <p>Reviews:</p>
-                                <br></br>
                                 {this.state.productReviews.map((item, index) => (
-                                    <div>
+                                    <div style={{border: "ridge"}}>
                                         <p>{item.reviewDate}</p>
                                         <p>{item.user.username}:</p>
                                         <p>{item.reviewText}</p>
                                     </div>
                                 ))}
-                                <input id="reviewInput" style={{ width: 800, height: 50 }} size="1000" type="text"></input>
+                                <input id="reviewInput" style={{ width: 800, height: 50 }} size="1000" type="textarea" rows="10" cols="50"></input>
                                 <button class="shopBtn" onClick={() => this.handleReviewSubmitButton(this.state.productInfo.id, document.getElementById("reviewInput").value)}>Submit Review</button>
                             </div>
                         </div>

@@ -48,6 +48,8 @@ class Home_Page extends Component {
         this.handleHeaderManagementButton = this.handleHeaderManagementButton.bind(this);
         this.categoryClickStateHandler = this.categoryClickStateHandler.bind(this);
         this.handleAllCategorySelection = this.handleAllCategorySelection.bind(this);
+        this.handleLogoutButton = this.handleLogoutButton.bind(this);
+        this.handleUsernameButtonClick = this.handleUsernameButtonClick.bind(this);
     }
 
     handleSearchBarChange = (event) => {
@@ -83,9 +85,9 @@ class Home_Page extends Component {
                 }
             );
         }
-    var element=<button class="btn btn-mini pull-right" >A</button>;
-        
-    ReactDOM.render(element, document.getElementById('buttonholder')); 
+        var element = <button class="btn btn-mini pull-right" >A</button>;
+
+        ReactDOM.render(element, document.getElementById('buttonholder'));
     }
 
     redirectToCart = () => {
@@ -99,17 +101,20 @@ class Home_Page extends Component {
     }
 
     handleHeaderManagementButton = () => {
-        if(AuthService.getCurrentUser().roles[0] == "ROLE_ADMIN")
-        {
+        if (AuthService.getCurrentUser().roles[0] == "ROLE_ADMIN") {
             this.props.history.push("/salesmanager");
             window.location.reload();
         }
-        else if(AuthService.getCurrentUser().roles[0] == "ROLE_MODERATOR")
-        {
+        else if (AuthService.getCurrentUser().roles[0] == "ROLE_MODERATOR") {
             this.props.history.push("/productmanager");
             window.location.reload();
         }
-        
+        else if(AuthService.getCurrentUser().roles[0] == "ROLE_USER")
+        {
+            this.props.history.push("/profile");
+            window.location.reload();
+        }
+
     }
 
     categoryClickStateHandler = (categoryProducts) => {
@@ -121,6 +126,17 @@ class Home_Page extends Component {
 
     handleAllCategorySelection = () => {
         window.location.reload(false);
+    }
+
+    handleUsernameButtonClick = () => {
+        this.props.history.push("/profile");
+        window.location.reload();
+    }
+
+    handleLogoutButton = () => {
+        AuthService.logout();
+        this.props.history.push("/");
+        window.location.reload();
     }
 
     render() {
@@ -140,10 +156,12 @@ class Home_Page extends Component {
                                     <li onClick={() => this.handleHeaderManagementButton()}><a>Management	</a></li>
 
                                     <form onSubmit={this.searchCoffeeMachines} class="navbar-search pull-left">
-                                        <input type="text" placeholder="Search" style={{marginTop: 5}} class="search-query span2" onChange={this.handleSearchBarChange}></input>
+                                        <input type="text" placeholder="Search" style={{ marginTop: 5, marginRight: 820 }} class="search-query span2" onChange={this.handleSearchBarChange}></input>
                                     </form>
-                                    <ul class="nav pull-right"></ul>
-
+                                    <ul class="nav pull-right">
+                                        <li onClick={() => this.handleUsernameButtonClick()}><a>{AuthService.getCurrentUser().username}</a></li>
+                                        <li onClick={() => this.handleLogoutButton()}><a>Logout	</a></li>
+                                    </ul>
                                 </ul>
                             </div>
                         </div>
@@ -154,13 +172,13 @@ class Home_Page extends Component {
                         <div class="well well-small">
                             <div align="left" ><b>Categories:</b></div>
                             <ul class="nav nav-list" id="insertCategories">
-                            <li><a align="left" onClick={() => this.handleAllCategorySelection()}><span class="icon-chevron-right"></span>All</a></li>
-                                <Category categoryClickHandler = {this.categoryClickStateHandler}></Category>
+                                <li><a align="left" onClick={() => this.handleAllCategorySelection()}><span class="icon-chevron-right"></span>All</a></li>
+                                <Category categoryClickHandler={this.categoryClickStateHandler}></Category>
                             </ul>
                         </div>
                     </div>
                     <div class="well well-small">
-                        <h3><a class="btn btn-mini pull-right" title="View more" onClick={() => {this.redirectToCart()}}>Go To Cart<span class="icon-plus"></span></a> Featured Products  </h3>
+                        <h3><a class="btn btn-mini pull-right" title="View more" onClick={() => { this.redirectToCart() }}>Go To Cart<span class="icon-plus"></span></a> Featured Products  </h3>
                         <div id="buttonholder"> </div>
                         <hr class="soften" />
                         <div class="row-fluid">

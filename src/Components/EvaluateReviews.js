@@ -55,6 +55,7 @@ class EvaluateReviews extends Component
         ).then(
             () => {
                 console.log(this.state.reviewStatusResponse);
+                sessionStorage.setItem("componentnumber", 5);
                 window.location.reload(false);
             }
         );

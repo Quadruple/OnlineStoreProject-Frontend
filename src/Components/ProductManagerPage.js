@@ -14,6 +14,31 @@ import {Dtable} from './datatable.js';
 import EvaluateReviews from '../Components/EvaluateReviews'
 
 class ProductManagerPage extends Component {
+
+    componentDidMount()
+    {
+        let compNum = sessionStorage.getItem("componentnumber");
+        if(compNum == 5)
+        {
+            this.handleMenu5();
+        }
+        else if(compNum == 4)
+        {
+            this.handleMenu4();
+        }
+        else if(compNum == 3)
+        {
+            this.handleMenu3();
+        }
+        else if(compNum == 2)
+        {
+            this.handleMenu2();
+        }
+        else if(compNum == 1)
+        {
+            this.handleMenu1();
+        }
+    }
    
     constructor(props) {
         
