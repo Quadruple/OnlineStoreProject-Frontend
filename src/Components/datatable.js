@@ -7,14 +7,15 @@ $.DataTable = require('datatables.net')
 export class Dtable extends Component {
     componentDidMount() {
 
+        console.log("ITEM", this.props.data)
         this.$el = $(this.el)
         var x = this.$el.DataTable({
 
 
-            columns: [{ title: "Name", }, { title: "Description" }, { title: "Modal Number" }, { title: "Distribution Info" }, { title: "Warrant Status" }, { title: "Stock" }, { title: "Price" }, { title: " " }],
+            columns: [{ title: "Name", }, { title: "Description" }, { title: "Category" }, { title: "Distribution Info" }, { title: "Warrant Status" }, { title: "Stock" }, { title: "Price" }, { title: " " }],
 
             data: this.props.data.map((item, index) => (
-
+                
                 ([item.name, item.description, item.modelNumber, item.distributorInfo, item.warrantyStatus, item.quantityStocks, item.price, '<button class="btn btn-mini pull-right" id=' + item.id + '>Delete</button>'])
 
 

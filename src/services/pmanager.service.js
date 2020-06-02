@@ -6,7 +6,7 @@ const UPDATE_ITEM_URL = "http://localhost:8080/api/test/updateProduct/";
 const DELETE_ITEM_URL = "http://localhost:8080/api/test/deleteProductById/";
 const getAllProducts = "http://localhost:8080/api/test/getAllProducts";
 const GET_ALL_CATEGORIES = "http://localhost:8080/api/test/getAllCategories";
-const ADDCATEGORY = "";
+const ADDCATEGORY = "http://localhost:8080/api/test/addCategory/";
 
 
 
@@ -21,7 +21,7 @@ class pmanagerService
     }
     AddCategory(category)
     {
-        return axios.get(ADDCATEGORY+category , { headers: authHeader() });
+        return axios.post(ADDCATEGORY+category , { headers: authHeader() });
     }    
     UpdateItem(id,description,distribution_info,modal,Warrant_status,name,stock,price)
     {

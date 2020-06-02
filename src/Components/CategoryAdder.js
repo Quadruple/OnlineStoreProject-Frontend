@@ -7,22 +7,21 @@ class CatAdder extends Component {
     constructor(props) {
         super(props);
 
-
-
         this.state = {
-
             category: ""
-
-
         };
+
+        this.handleCategoryChange = this.handleCategoryChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     handleCategoryChange = (event) => {
         this.setState({
-            name: event.target.value
+            category: event.target.value
         })
     }
-    handleFormSubmit = (event) => {
+
+    handleFormSubmit = () => {
         if (this.state.category != "") {
             console.log("here");
             pmanagerService.AddCategory(this.state.category).then(
@@ -32,25 +31,17 @@ class CatAdder extends Component {
                 });
         }
     }
-    fakefunction = (event) => {
-
-
-        event.preventDefault();
-        return false;
-    }
 
     render() {
         return (
             <div>
-                <form onSubmit={this.fakefunction}>
-                    <h3>Add Category</h3>
-                    <label for="Category">Category:</label>
-                    <input id="categories" required="required" type="text" name="Category" onChange={this.handleNameChange}></input><br></br>
-                    <br></br>
-                    <button onClick={this.handleFormSubmit} class="shopBtn">Confirm</button>
-
-                </form>
-            </div>)
+                <h3>Add Category</h3>
+                <label for="Category">Category:</label>
+                <input id="categories" required="required" type="text" name="Category" onChange={this.handleCategoryChange}></input><br></br>
+                <br></br>
+                <button onClick={() => this.handleFormSubmit()} class="shopBtn">Confirm</button>
+            </div>
+        )
     }
 }
 export default CatAdder
