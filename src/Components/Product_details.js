@@ -14,6 +14,7 @@ import mrcoffee from '../assets/coffeemachinesforsale/mrcoffee.jpg'
 import nespresso from '../assets/coffeemachinesforsale/nespresso.jpg'
 import bialetti from '../assets/coffeemachinesforsale/bialetti.jpg'
 import cuisinart from '../assets/coffeemachinesforsale/cuisinart.jpg'
+import okka from '../assets/coffeemachinesforsale/okka.jpg'
 
 class Product_Details extends Component {
     componentDidMount() {
@@ -120,6 +121,9 @@ class Product_Details extends Component {
         }
         else if (pictureId === 4) {
             return bialetti;
+        }
+        else if(pictureId === 5) {
+            return okka;
         }
     }
 
@@ -308,7 +312,7 @@ class Product_Details extends Component {
                                     <p></p>
                                     <button class="shopBtn" onClick={() => this.handleAddToCartButton(this.state.productInfo.id, document.getElementById("quantityInput").value)}><span class=" icon-shopping-cart"></span> Add to cart</button>
                                 </form>
-                                <p>Rating: {this.state.fetchRatingsResult.averageRating} out of 5</p>
+                                <p>Rating: {Number(this.state.fetchRatingsResult.averageRating).toFixed(2)} out of 5</p>
                                 {this.state.isUserSubmittedRating.length > 0 ? <p>You have already submitted a rating of {this.state.isUserSubmittedRating[0].rating}</p> : <div>
                                     <input id="ratingInput" class="span1" style={{ width: 60 }} placeholder="1" size="1" type="number" min="1" max="5"></input>
                                     <br></br>

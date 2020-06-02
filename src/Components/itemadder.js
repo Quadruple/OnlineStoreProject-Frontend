@@ -93,13 +93,13 @@ class itemAdder extends Component {
     }
     handleCategoryChange = (event) => {
         this.setState({
-            name: event.target.value
+            category: event.target.value
         })
     }
     handleFormSubmit = (event) => {
         if (this.state.price != -1 && this.state.stock != 0 && this.state.Warrant_status != "" && this.state.description != "" && this.state.distribution_info != "" && this.state.modal != "" && this.state.name != "") {
             console.log("here");
-            pmanagerService.AddItem(this.state.description, this.state.distribution_info, this.state.modal, this.state.Warrant_status, this.state.name, this.state.stock, this.state.price).then(
+            pmanagerService.AddItem(this.state.description, this.state.distribution_info, this.state.modal, this.state.Warrant_status, this.state.name, this.state.stock, this.state.price, this.state.category).then(
                 () => {
                     alert("Item successfully added");
                     sessionStorage.setItem("componentnumber", 1);
@@ -122,7 +122,7 @@ class itemAdder extends Component {
                     <label for="name">Name:</label>
                     <input required="required" type="text" name="name" onChange={this.handleNameChange}></input><br></br>
                     <label for="Category">Category:</label>
-                    <select id="categories" required="required" name="Category" onChange={this.handleNameChange}>
+                    <select id="categories" required="required" name="Category" onChange={this.handleCategoryChange}>
                         <option selected="true" >Select Category</option>
 
                     </select><br></br>

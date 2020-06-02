@@ -4,6 +4,8 @@ import SetProductDiscount from '../Components/SetProductDiscount'
 import ViewInvoices from '../Components/ViewInvoices'
 import EvaluateReviews from '../Components/EvaluateReviews'
 import SetDeliveries from '../Components/SetDeliveries'
+import CreateCoupon from '../Components/CreateCoupon'
+import AuthService from '../services/auth.service'
 
 class SalesManager extends Component {
 
@@ -23,10 +25,12 @@ class SalesManager extends Component {
         this.state = {
             showSetDiscountMenu: true,
             showInvoicesMenu: false,
-            showDeliveriesPage: false
+            showDeliveriesPage: false,
+            createCoupon: false
         }
 
         this.renderCorrespondingMenu = this.renderCorrespondingMenu.bind(this);
+        this.handleLogoutButton = this.handleLogoutButton.bind(this);
     }
 
     renderCorrespondingMenu = (menuId) => {
@@ -35,7 +39,8 @@ class SalesManager extends Component {
             this.setState({
                 showSetDiscountMenu: true,
                 showInvoicesMenu: false,
-                showDeliveriesPage: false
+                showDeliveriesPage: false,
+                createCoupon: false
             });
         }
         else if(menuId == 1)
@@ -43,7 +48,8 @@ class SalesManager extends Component {
             this.setState({
                 showSetDiscountMenu: false,
                 showInvoicesMenu: true,
-                showDeliveriesPage: false
+                showDeliveriesPage: false,
+                createCoupon: false
             });
             document.getElementById('sidebar').style.height="250px";
         }
@@ -52,10 +58,26 @@ class SalesManager extends Component {
             this.setState({
                 showSetDiscountMenu: false,
                 showInvoicesMenu: false,
-                showDeliveriesPage: true
+                showDeliveriesPage: true,
+                createCoupon: false
             });
             document.getElementById('sidebar').style.height="1200px";
         }
+        else if(menuId == 4)
+        {
+            this.setState({
+                showSetDiscountMenu: false,
+                showInvoicesMenu: false,
+                showDeliveriesPage: false,
+                createCoupon: true
+            });
+        }
+    }
+
+    handleLogoutButton = () => {
+        AuthService.logout();
+        this.props.history.push("/");
+        window.location.reload();
     }
 
     render() {
@@ -72,9 +94,11 @@ class SalesManager extends Component {
                             <div class="nav-collapse">
                                 <ul class="nav">
                                     <li ><a href="/Home">Home	</a></li>
-                                    <li class="active"><a   >Management</a></li>
-                                    <ul class="nav pull-right"></ul>
-
+                                    <li class="active" style={{ marginRight: 1020 }}><a   >Management</a></li>
+                                    <ul class="nav pull-right">
+                                        <li><a>{AuthService.getCurrentUser().username}</a></li>
+                                        <li onClick={() => this.handleLogoutButton()}><a>Logout	</a></li>
+                                    </ul>
                                 </ul>
                             </div>
                         </div>
@@ -86,16 +110,19 @@ class SalesManager extends Component {
                             <div align="left" ><b>Manager Menu</b></div><br></br>
                             <ul class="nav nav-list" id="insertCategories">
                                 <li style={{borderStyle: "double"}}>
-                                    <a onClick={() => this.renderCorrespondingMenu(0)}>Set Product Discount</a>
+                                    <a style={{marginLeft: 5}} onClick={() => this.renderCorrespondingMenu(0)}> Set Product Discount</a>
                                 </li>
                                 <li style={{borderStyle: "double"}}>
-                                    <a onClick={() => this.renderCorrespondingMenu(1)}>View All Purchases</a>
+                                    <a style={{marginLeft: 5}} onClick={() => this.renderCorrespondingMenu(1)}> View All Purchases</a>
                                 </li>
                                 <li style={{borderStyle: "double"}}>
-                                    <a>View Revenues in Between Dates</a>
+                                    <a style={{marginLeft: 5}} >View Revenues in Between Dates</a>
                                 </li>
                                 <li style={{borderStyle: "double"}}>
-                                    <a onClick={() => this.renderCorrespondingMenu(3)}>Set Deliveries of Customers</a>
+                                    <a style={{marginLeft: 5}} onClick={() => this.renderCorrespondingMenu(3)}> Set Deliveries of Customers</a>
+                                </li>
+                                <li style={{borderStyle: "double"}}>
+                                    <a style={{marginLeft: 5}} onClick={() => this.renderCorrespondingMenu(4)}> Create Coupon</a>
                                 </li>
                             </ul>
                         </div>
@@ -116,6 +143,9 @@ class SalesManager extends Component {
                            }
                            {
                                this.state.showDeliveriesPage ? <SetDeliveries /> : null
+                           }
+                           {
+                               this.state.createCoupon ? <CreateCoupon /> : null
                            }
                         </div>
                     </div>

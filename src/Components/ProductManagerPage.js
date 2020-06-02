@@ -12,6 +12,7 @@ import pmanagerService from '../services/pmanager.service'
 import productsService from '../services/products.service';
 import {Dtable} from './datatable.js';
 import EvaluateReviews from '../Components/EvaluateReviews'
+import AuthService from '../services/auth.service'
 
 class ProductManagerPage extends Component {
 
@@ -43,16 +44,15 @@ class ProductManagerPage extends Component {
     constructor(props) {
         
         super(props);
-    
-        this.handleDeleteButton=this.handleDeleteButton.bind(this);
         
 
         this.state = {
             searchString: "",
             Products:[]
-
-
         };
+
+        this.handleDeleteButton=this.handleDeleteButton.bind(this);
+        this.handleLogoutButton = this.handleLogoutButton.bind(this);
     }
     handleDeleteButton = (ProductId) => {
         pmanagerService.DeleteItem(ProductId);
@@ -93,7 +93,11 @@ class ProductManagerPage extends Component {
         document.getElementById('sidebar').style.height="700px";
     }                  
 
-
+    handleLogoutButton = () => {
+        AuthService.logout();
+        this.props.history.push("/");
+        window.location.reload();
+    }
 
     render() {
         return (
@@ -110,9 +114,12 @@ class ProductManagerPage extends Component {
                                 <ul class="nav">
                                     <li ><a href="/Home">Home	</a></li>
 
-                                    <li class="active"><a href="/ProductManager">Management</a></li>
+                                    <li style={{ marginRight: 1020 }} class="active"><a href="/ProductManager">Management</a></li>
                                     
-                                    <ul class="nav pull-right"></ul>
+                                    <ul class="nav pull-right">
+                                        <li><a>{AuthService.getCurrentUser().username}</a></li>
+                                        <li onClick={() => this.handleLogoutButton()}><a>Logout	</a></li>
+                                    </ul>
 
                                 </ul>
                             </div>
@@ -126,19 +133,19 @@ class ProductManagerPage extends Component {
                             <hr class="soften" />
                             <ul class="nav nav-list" id="insertCategories">
                                 <li style={{borderStyle: "double"}} onClick={this.handleMenu1}>
-                                <a >-Add New Product</a>
+                                <a style={{marginLeft: 5}}>Add New Product</a>
                                 </li>
                                 <li style={{borderStyle: "double"}} onClick={this.handleMenu4}>
-                                <a >-Add New Category</a>
+                                <a style={{marginLeft: 5}}>Add New Category</a>
                                 </li>                                
                                 <li style={{borderStyle: "double"}}onClick={this.handleMenu2}>
-                                <a >-Display Products </a>
+                                <a style={{marginLeft: 5}}>Display Products </a>
                                 </li>
                                 <li style={{borderStyle: "double"}}onClick={this.handleMenu3}>
-                                <a >-Edit Products </a>
+                                <a style={{marginLeft: 5}}>Edit Products </a>
                                 </li>
                                 <li style={{borderStyle: "double"}}onClick={this.handleMenu5}>
-                                <a >-Review Management </a>
+                                <a style={{marginLeft: 5}}>Review Management </a>
                                 </li>                                                                 
                                 <li>
                                 </li><br></br>

@@ -3,6 +3,7 @@ import mrcoffee from '../assets/coffeemachinesforsale/mrcoffee.jpg';
 import nespresso from '../assets/coffeemachinesforsale/nespresso.jpg';
 import bialetti from '../assets/coffeemachinesforsale/bialetti.jpg';
 import cuisinart from '../assets/coffeemachinesforsale/cuisinart.jpg';
+import okka from '../assets/coffeemachinesforsale/okka.jpg';
 import history from '../history';
 import cartService from '../services/cart.service';
 import authService from '../services/auth.service';
@@ -59,6 +60,9 @@ class CoffeeMachineObjects extends Component {
         else if (pictureId === 4) {
             return bialetti;
         }
+        else if(pictureId === 5) {
+            return okka;
+        }
     }
 
     showProductDetails = (index) => {
@@ -111,7 +115,7 @@ class CoffeeMachineObjects extends Component {
                                     <a class="shopBtn" title="add to cart"><span class="icon-plus" onClick={() => this.addSelectedProductToCart(index)}></span></a>
                                     {item.discounted ? <><span class="pull-right" style={{ borderColor: "" }}> {item.discountedPrice}$ <s>{item.price}$</s></span><span id="notification" type="hidden" style={{ backgroundColor: "red", float: "right" }} class="badge bg-green">-%{(item.price - item.discountedPrice) / item.price * 100}</span></> : <span class="pull-right">{item.price}$</span>}
                                 </h4>
-                                {this.state.fetchRatingsResult[index].averageRating == 0 ? <p>No current ratings available.</p> : <p>Rating: {this.state.fetchRatingsResult[index].averageRating} out of 5</p>}
+                                {this.state.fetchRatingsResult[index].averageRating == 0 ? <p>No current ratings available.</p> : <p>Rating: {Number(this.state.fetchRatingsResult[index].averageRating).toFixed(2)} out of 5</p>}
                             </div>
                         </div>
                     </li>

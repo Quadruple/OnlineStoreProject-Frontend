@@ -14,10 +14,10 @@ class pmanagerService
 {
     
 
-    AddItem(description,distribution_info,modal,Warrant_status,name,stock,price)
+    AddItem(description,distribution_info,modal,Warrant_status,name,stock,price,catname)
     {
-        console.log(ADDITEM_URL+description+"/"+distribution_info+"/"+modal+"/"+name+"/"+price+"/"+stock+"/"+Warrant_status )
-        return axios.post(ADDITEM_URL+description+"/"+distribution_info+"/"+modal+"/"+name+"/"+price+"/"+stock+"/"+Warrant_status , { headers: authHeader() });
+        console.log(ADDITEM_URL+description+"/"+distribution_info+"/"+modal+"/"+name+"/"+price+"/"+stock+"/"+Warrant_status + "/" + catname)
+        return axios.post(ADDITEM_URL+description+"/"+distribution_info+"/"+modal+"/"+name+"/"+price+"/"+stock+"/"+Warrant_status + "/" + catname , { headers: authHeader() });
     }
     AddCategory(category)
     {
