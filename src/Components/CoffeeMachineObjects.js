@@ -1,13 +1,37 @@
 import React, { Component } from 'react';
-import mrcoffee from '../assets/coffeemachinesforsale/mrcoffee.jpg'
-import nespresso from '../assets/coffeemachinesforsale/nespresso.jpg'
-import bialetti from '../assets/coffeemachinesforsale/bialetti.jpg'
-import cuisinart from '../assets/coffeemachinesforsale/cuisinart.jpg'
-import history from '../history'
-import cartService from '../services/cart.service'
-import authService from '../services/auth.service'
+import mrcoffee from '../assets/coffeemachinesforsale/mrcoffee.jpg';
+import nespresso from '../assets/coffeemachinesforsale/nespresso.jpg';
+import bialetti from '../assets/coffeemachinesforsale/bialetti.jpg';
+import cuisinart from '../assets/coffeemachinesforsale/cuisinart.jpg';
+import history from '../history';
+import cartService from '../services/cart.service';
+import authService from '../services/auth.service';
+import RatingService from '../services/rating.service';
 
 class CoffeeMachineObjects extends Component {
+    componentDidMount()
+    {
+        RatingService.fetchAllRatings().then(
+            response => {
+                this.setState({
+                    fetchRatingsResult: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    fetchRatingsResult:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log("Rating results", this.state.fetchRatingsResult);
+            }
+        );
+    }
+
     constructor(props) {
         super(props);
 
@@ -16,7 +40,8 @@ class CoffeeMachineObjects extends Component {
         this.addSelectedProductToCart = this.addSelectedProductToCart.bind(this);
 
         this.state = {
-            addToCartResult: []
+            addToCartResult: [],
+            fetchRatingsResult: []
         }
     }
 
@@ -51,7 +76,7 @@ class CoffeeMachineObjects extends Component {
         cartService.addToCart(currentUser.id, this.props.coffeemachineobjects[index].id, "1").then(
             response => {
                 this.setState({
-                    addToCartResult: response.data
+                    addToCartResult: response.data,
                 });
             },
             error => {
@@ -86,6 +111,7 @@ class CoffeeMachineObjects extends Component {
                                     <a class="shopBtn" title="add to cart"><span class="icon-plus" onClick={() => this.addSelectedProductToCart(index)}></span></a>
                                     {item.discounted ? <><span class="pull-right" style={{ borderColor: "" }}> {item.discountedPrice}$ <s>{item.price}$</s></span><span id="notification" type="hidden" style={{ backgroundColor: "red", float: "right" }} class="badge bg-green">-%{(item.price - item.discountedPrice) / item.price * 100}</span></> : <span class="pull-right">{item.price}$</span>}
                                 </h4>
+                                {this.state.fetchRatingsResult[index].averageRating == 0 ? <p>No current ratings available.</p> : <p>Rating: {this.state.fetchRatingsResult[index].averageRating} out of 5</p>}
                             </div>
                         </div>
                     </li>

@@ -7,37 +7,19 @@ import "../services/products.service";
 import Edit from '../Components/UserDetailsE';
 import Info from '../Components/UserDetails';
 import ProductManaging from '../Components/ProductManaging';
-import UserrService from '../services/pmanager.service'
-import productsService from '../services/products.service';
 import {Utable} from './usertable.js'
-import AuthService from '../services/auth.service';
 
 class UserPage extends Component {
-    /*componentDidMount() {
-        AuthService.getCurrentUser().then(
-             response => {
-                 this.setState({
-                     UserInfo: response.data
-                 });
-             },
-             error => {
-                 
-             }
-         )}
+    
     constructor(props) {
         
         super(props);
 
-        
-
         this.state = {
             searchString: "",
-            UserInfo:"",
-
-
+            UserInfo: "",
         };
     }
-*/
 
     handleSearchBarChange = (event) => {
         this.setState({
@@ -72,8 +54,12 @@ class UserPage extends Component {
             document.getElementById('sidebar').style.height="700px";
             document.getElementById('buttonholder').removeChild(document.getElementById('buttonholder').firstChild);
             document.getElementById('buttonholder').appendChild(but);
-        }        
-        document.getElementById('buttonholder').appendChild(but);
+        }   
+        console.log(document.getElementById('buttonholder').childNodes );     
+        if(document.getElementById('buttonholder').childNodes.length != 1)
+        {
+            document.getElementById('buttonholder').appendChild(but)
+        }
     }
     handleMenu2= (event) =>{
         var element=<Utable ></Utable>;

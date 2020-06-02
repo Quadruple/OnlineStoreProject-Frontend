@@ -2,23 +2,26 @@ import axios from 'axios';
 import authHeader from './auth-header';
 
 
-const getAllProducts = "http://localhost:8080/api/test/getAllProducts/";
+const GET_USER_INFO = "http://localhost:8080/api/test/returnUserInfo/";
+const UPDATE_USER_INFO = "http://localhost:8080/api/test/updateUserInfo/";
+const getAllProducts = "";
 
 
 class UserService
 {
-    
+    getUserInformationForProfile(userId)
+    {
+        return axios.get(GET_USER_INFO + userId, { headers: authHeader() });
+    }
 
     getOrders(id){
-        return axios.get(getAllProducts+id, { headers: authHeader() });
-        
+        return axios.get(getAllProducts+id, { headers: authHeader() });  
     }
-    Update(name,username,email,adress)
+
+    Update(userId,name,email,adress)
     {
-        console.log(getAllProducts+"/"+name+"/"+username+"/"+email+"/"+adress);
-        return axios.get(getAllProducts+name+"/"+username+"/"+email+"/"+adress, { headers: authHeader() });
-
-
+        console.log(UPDATE_USER_INFO + userId + "/" + name + "/" + email + "/" + adress);
+        return axios.get(UPDATE_USER_INFO + userId + "/" + name + "/" + email + "/" + adress, { headers: authHeader() });
     }
 }
 

@@ -8,6 +8,7 @@ import Category from './Category'
 import AuthService from '../services/auth.service'
 import CartService from '../services/cart.service'
 import ReviewsService from '../services/reviews.service'
+import RatingService from '../services/rating.service'
 import CoffeeMachineObjects from './CoffeeMachineObjects'
 import mrcoffee from '../assets/coffeemachinesforsale/mrcoffee.jpg'
 import nespresso from '../assets/coffeemachinesforsale/nespresso.jpg'
@@ -41,6 +42,46 @@ class Product_Details extends Component {
                 console.log("product reviews", this.state.productReviews);
             }
         );
+
+        RatingService.fetchRatingsOfProduct(productInfo.id).then(
+            response => {
+                this.setState({
+                    fetchRatingsResult: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    fetchRatingsResult:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log("Rating results", this.state.fetchRatingsResult);
+            }
+        );
+
+        RatingService.checkIfUserSubmittedProduct(AuthService.getCurrentUser().id, productInfo.id).then(
+            response => {
+                this.setState({
+                    isUserSubmittedRating: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    isUserSubmittedRating:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log("isSubmitted", this.state.isUserSubmittedRating);
+            }
+        );
     }
 
     constructor(props) {
@@ -52,7 +93,10 @@ class Product_Details extends Component {
             productInfo: [],
             addToCartResult: [],
             productReviews: [],
-            submitReviewResults: []
+            submitReviewResults: [],
+            fetchRatingsResult: [],
+            ratingSubmitResults: [],
+            isUserSubmittedRating: []
         };
 
         this.handleAddToCartButton = this.handleAddToCartButton.bind(this);
@@ -176,6 +220,41 @@ class Product_Details extends Component {
         }
     }
 
+    handleSubmitRatingButton = () => {
+        if (!document.getElementById("ratingInput").value) {
+            alert("Please select a rating number to submit.");
+        }
+        else {
+            RatingService.insertRatingToProduct(this.state.productInfo.id,
+                AuthService.getCurrentUser().id,
+                document.getElementById("ratingInput").value).then(
+                    response => {
+                        this.setState({
+                            ratingSubmitResults: response.data
+                        });
+                    },
+                    error => {
+                        this.setState({
+                            ratingSubmitResults:
+                                (error.response && error.response.data) ||
+                                error.message ||
+                                error.toString()
+                        });
+                    }
+                ).then(
+                    () => {
+                        console.log(this.state.ratingSubmitResults);
+                        if (this.state.ratingSubmitResults == "This account has already submitted a rating on this product.") {
+                            alert(this.state.ratingSubmitResults)
+                        }
+                        else{
+                            window.location.reload(false);
+                        }
+                    }
+                );
+        }
+    }
+
     render() {
         return (
             <div >
@@ -229,9 +308,15 @@ class Product_Details extends Component {
                                     <p></p>
                                     <button class="shopBtn" onClick={() => this.handleAddToCartButton(this.state.productInfo.id, document.getElementById("quantityInput").value)}><span class=" icon-shopping-cart"></span> Add to cart</button>
                                 </form>
+                                <p>Rating: {this.state.fetchRatingsResult.averageRating} out of 5</p>
+                                {this.state.isUserSubmittedRating.length > 0 ? <p>You have already submitted a rating of {this.state.isUserSubmittedRating[0].rating}</p> : <div>
+                                    <input id="ratingInput" class="span1" style={{ width: 60 }} placeholder="1" size="1" type="number" min="1" max="5"></input>
+                                    <br></br>
+                                    <button class="shopBtn" onClick={() => this.handleSubmitRatingButton()}>Submit Rating</button>
+                                </div>}
                                 <p>Reviews:</p>
                                 {this.state.productReviews.map((item, index) => (
-                                    <div style={{border: "ridge"}}>
+                                    <div style={{ border: "ridge" }}>
                                         <p>{item.reviewDate}</p>
                                         <p>{item.user.username}:</p>
                                         <p>{item.reviewText}</p>

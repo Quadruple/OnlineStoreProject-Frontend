@@ -41,7 +41,8 @@ class Home_Page extends Component {
         this.state = {
             searchString: "",
             coffeeMachineResults: [],
-            currentUser: AuthService.getCurrentUser()
+            currentUser: AuthService.getCurrentUser(),
+            fetchRatingsResult: []
         };
 
         this.handleHeaderHomeButton = this.handleHeaderHomeButton.bind(this);

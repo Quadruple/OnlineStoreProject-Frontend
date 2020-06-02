@@ -109,9 +109,8 @@ class ProductManagerPage extends Component {
                             <div class="nav-collapse">
                                 <ul class="nav">
                                     <li ><a href="/Home">Home	</a></li>
-                                    <li><a href="/Profile">Profile</a></li>
 
-                                    <li class="active"><a href="/ProductManager">Manage</a></li>
+                                    <li class="active"><a href="/ProductManager">Management</a></li>
                                     
                                     <ul class="nav pull-right"></ul>
 

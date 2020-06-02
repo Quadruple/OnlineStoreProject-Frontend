@@ -1,10 +1,21 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import SetProductDiscount from '../Components/SetProductDiscount'
 import ViewInvoices from '../Components/ViewInvoices'
 import EvaluateReviews from '../Components/EvaluateReviews'
 import SetDeliveries from '../Components/SetDeliveries'
 
 class SalesManager extends Component {
+
+    componentDidMount() 
+    {
+        let compNum = sessionStorage.getItem("salesmanagernumber");
+        if(compNum == 3)
+        {
+            this.renderCorrespondingMenu(3);
+        }
+        sessionStorage.setItem("salesmanagernumber", 0);
+    }
 
     constructor(props) {
         super(props);
@@ -34,6 +45,7 @@ class SalesManager extends Component {
                 showInvoicesMenu: true,
                 showDeliveriesPage: false
             });
+            document.getElementById('sidebar').style.height="250px";
         }
         else if(menuId == 3)
         {
@@ -42,6 +54,7 @@ class SalesManager extends Component {
                 showInvoicesMenu: false,
                 showDeliveriesPage: true
             });
+            document.getElementById('sidebar').style.height="1200px";
         }
     }
 
@@ -68,22 +81,22 @@ class SalesManager extends Component {
                     </div>
                 </div>
                 <div class="row">
-                    <div id="sidebar" class="span3" style={{ height: 10000, marginRight: 50 }}>
+                    <div id="sidebar" class="span3" style={{ marginRight: 50 }}>
                         <div class="well well-small">
                             <div align="left" ><b>Manager Menu</b></div><br></br>
                             <ul class="nav nav-list" id="insertCategories">
-                                <li>
+                                <li style={{borderStyle: "double"}}>
                                     <a onClick={() => this.renderCorrespondingMenu(0)}>Set Product Discount</a>
-                                </li><br></br>
-                                <li>
+                                </li>
+                                <li style={{borderStyle: "double"}}>
                                     <a onClick={() => this.renderCorrespondingMenu(1)}>View All Purchases</a>
-                                </li><br></br>
-                                <li>
+                                </li>
+                                <li style={{borderStyle: "double"}}>
                                     <a>View Revenues in Between Dates</a>
-                                </li><br></br>
-                                <li>
+                                </li>
+                                <li style={{borderStyle: "double"}}>
                                     <a onClick={() => this.renderCorrespondingMenu(3)}>Set Deliveries of Customers</a>
-                                </li><br></br>
+                                </li>
                             </ul>
                         </div>
                     </div>

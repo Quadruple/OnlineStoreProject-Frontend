@@ -61,6 +61,7 @@ class SetDeliveries extends Component
         ).then(
             () => {
                 console.log(this.state.deliveryStatusResponse);
+                sessionStorage.setItem("salesmanagernumber", 3);
                 window.location.reload();
             }
         );
