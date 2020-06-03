@@ -8,7 +8,8 @@ import ProductsService from '../services/products.service';
 import Category from './Category';
 import CoffeeMachineObjects from './CoffeeMachineObjects';
 import ProductService from '../services/products.service';
-import AuthService from '../services/auth.service'
+import AuthService from '../services/auth.service';
+import FilterService from '../services/filter.service';
 
 class Home_Page extends Component {
     componentDidMount() {
@@ -51,6 +52,7 @@ class Home_Page extends Component {
         this.handleAllCategorySelection = this.handleAllCategorySelection.bind(this);
         this.handleLogoutButton = this.handleLogoutButton.bind(this);
         this.handleUsernameButtonClick = this.handleUsernameButtonClick.bind(this);
+        this.handleFilters = this.handleFilters.bind(this);
     }
 
     handleSearchBarChange = (event) => {
@@ -110,8 +112,7 @@ class Home_Page extends Component {
             this.props.history.push("/productmanager");
             window.location.reload();
         }
-        else if(AuthService.getCurrentUser().roles[0] == "ROLE_USER")
-        {
+        else if (AuthService.getCurrentUser().roles[0] == "ROLE_USER") {
             this.props.history.push("/profile");
             window.location.reload();
         }
@@ -138,6 +139,96 @@ class Home_Page extends Component {
         AuthService.logout();
         this.props.history.push("/");
         window.location.reload();
+    }
+
+    handleFilters(sortOperation) {
+        switch (sortOperation) {
+            case 1:
+                FilterService.SortProductsByPriceAsc().then(
+                    response => {
+                        this.setState({
+                            coffeeMachineResults: response.data
+                        });
+                    },
+                    error => {
+                        this.setState({
+                            coffeeMachineResults:
+                                (error.response && error.response.data) ||
+                                error.message ||
+                                error.toString()
+                        });
+                    }
+                ).then(
+                    () => {
+                        console.log(this.state.coffeeMachineResults);
+                    }
+                );
+                break;
+            case 2:
+                FilterService.SortProductsByPriceDesc().then(
+                    response => {
+                        this.setState({
+                            coffeeMachineResults: response.data
+                        });
+                    },
+                    error => {
+                        this.setState({
+                            coffeeMachineResults:
+                                (error.response && error.response.data) ||
+                                error.message ||
+                                error.toString()
+                        });
+                    }
+                ).then(
+                    () => {
+                        console.log(this.state.coffeeMachineResults);
+                    }
+                );
+            break;
+            case 3:
+                FilterService.SortProductsByRating().then(
+                    response => {
+                        console.log("ASDADS", response.data);
+                        this.setState({
+                            coffeeMachineResults: response.data
+                        });
+                    },
+                    error => {
+                        this.setState({
+                            coffeeMachineResults:
+                                (error.response && error.response.data) ||
+                                error.message ||
+                                error.toString()
+                        });
+                    }
+                ).then(
+                    () => {
+                        console.log(this.state.coffeeMachineResults);
+                    }
+                );
+            break;
+            case 4:
+                FilterService.SortProductsByAlphabetical().then(
+                    response => {
+                        this.setState({
+                            coffeeMachineResults: response.data
+                        });
+                    },
+                    error => {
+                        this.setState({
+                            coffeeMachineResults:
+                                (error.response && error.response.data) ||
+                                error.message ||
+                                error.toString()
+                        });
+                    }
+                ).then(
+                    () => {
+                        console.log(this.state.coffeeMachineResults);
+                    }
+                );
+            break;
+        }
     }
 
     render() {
@@ -175,6 +266,14 @@ class Home_Page extends Component {
                             <ul class="nav nav-list" id="insertCategories">
                                 <li><a align="left" onClick={() => this.handleAllCategorySelection()}><span class="icon-chevron-right"></span>All</a></li>
                                 <Category categoryClickHandler={this.categoryClickStateHandler}></Category>
+                            </ul>
+                            <hr class="soften" />
+                            <div align="left" ><b>Filters:</b></div>
+                            <ul class="nav nav-list">
+                                <li><a align="left" onClick={() => this.handleFilters(1)}><span class="icon-chevron-right"></span>Cheapest first</a></li>
+                                <li><a align="left" onClick={() => this.handleFilters(2)}><span class="icon-chevron-right"></span>Most expensive first</a></li>
+                                <li><a align="left" onClick={() => this.handleFilters(3)}><span class="icon-chevron-right"></span>Best Ratings</a></li>
+                                <li><a align="left" onClick={() => this.handleFilters(4)}><span class="icon-chevron-right"></span>Alphabetical</a></li>
                             </ul>
                         </div>
                     </div>

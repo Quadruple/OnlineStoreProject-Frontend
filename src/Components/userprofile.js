@@ -7,9 +7,33 @@ import "../services/products.service";
 import Edit from '../Components/UserDetailsE';
 import Info from '../Components/UserDetails';
 import ProductManaging from '../Components/ProductManaging';
-import {Utable} from './usertable.js'
+import UserService from '../services/user.service';
+import AuthService from '../services/auth.service';
+import {Utable} from './usertable.js';
 
 class UserPage extends Component {
+    componentDidMount()
+    {   
+        UserService.getOrders(AuthService.getCurrentUser().id).then(
+            response => {
+                this.setState({
+                    getOrders: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    getOrders:
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        ).then(
+            () => {
+                console.log(this.state.getOrders);
+            }
+        );
+    }
     
     constructor(props) {
         
@@ -18,6 +42,7 @@ class UserPage extends Component {
         this.state = {
             searchString: "",
             UserInfo: "",
+            getOrders: []
         };
     }
 
@@ -62,7 +87,7 @@ class UserPage extends Component {
         }
     }
     handleMenu2= (event) =>{
-        var element=<Utable ></Utable>;
+        var element=<Utable data={this.state.getOrders}></Utable>;
         
         ReactDOM.render(element, document.getElementById('forms'));
         document.getElementById('sidebar').style.height="200px";

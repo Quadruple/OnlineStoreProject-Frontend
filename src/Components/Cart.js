@@ -44,7 +44,12 @@ class Cart extends Component {
             }
         ).then(
             () => {
-                alert(this.state.checkoutResponse);
+                if(this.state.checkoutResponse == 180)
+                {
+                    alert("Checkout is successful. Please check your email for incoming invoices.");
+                }
+                
+                this.props.history.push("/home");
                 window.location.reload(false);
             }
         );

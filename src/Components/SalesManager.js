@@ -11,6 +11,14 @@ class SalesManager extends Component {
 
     componentDidMount() 
     {
+        console.log(AuthService.getCurrentUser().roles[0]);
+        if(AuthService.getCurrentUser().roles[0] != "ROLE_ADMIN")
+        {
+            alert("Sorry, looks like you are not allowed to see this page.");
+            this.props.history.push("/home");
+            window.location.reload();
+        }
+
         let compNum = sessionStorage.getItem("salesmanagernumber");
         if(compNum == 3)
         {

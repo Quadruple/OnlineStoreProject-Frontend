@@ -18,6 +18,13 @@ class ProductManagerPage extends Component {
 
     componentDidMount()
     {
+        console.log(AuthService.getCurrentUser().roles[0]);
+        if(AuthService.getCurrentUser().roles[0] != "ROLE_MODERATOR")
+        {
+            alert("Sorry, looks like you are not allowed to see this page.");
+            this.props.history.push("/home");
+            window.location.reload();
+        }
         let compNum = sessionStorage.getItem("componentnumber");
         if(compNum == 5)
         {

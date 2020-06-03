@@ -7,7 +7,7 @@ $.DataTable = require('datatables.net')
 export class Utable extends Component
 {
     componentDidMount(){
-        
+        console.log(this.props.data);
         this.$el=$(this.el)
         var x=this.$el.DataTable({
             columns: [{ title: "Full name", }, { title: "E-mail" }, { title: "Address" }, { title: "Product Name" },

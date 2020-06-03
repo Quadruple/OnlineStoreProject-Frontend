@@ -4,7 +4,7 @@ import authHeader from './auth-header';
 
 const GET_USER_INFO = "http://localhost:8080/api/test/returnUserInfo/";
 const UPDATE_USER_INFO = "http://localhost:8080/api/test/updateUserInfo/";
-const getAllProducts = "";
+const GET_ORDERS_OF_USER = "http://localhost:8080/api/test/fetchAllCheckedOutItemsForUser/";
 
 
 class UserService
@@ -15,7 +15,7 @@ class UserService
     }
 
     getOrders(id){
-        return axios.get(getAllProducts+id, { headers: authHeader() });  
+        return axios.get(GET_ORDERS_OF_USER + id, { headers: authHeader() });  
     }
 
     Update(userId,name,email,adress)
