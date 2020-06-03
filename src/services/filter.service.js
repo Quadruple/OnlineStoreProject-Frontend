@@ -3,7 +3,7 @@ import authHeader from './auth-header';
 
 const SORT_BY_PRICE_ASC = "http://localhost:8080/api/test/fetchProductsPriceAsc/";
 const SORT_BY_PRICE_DESC = "http://localhost:8080/api/test/fetchProductsPriceDesc/";
-const SORT_BY_RATING = "http://localhost:8080/api/test/fetchProductsRatingAsc/";
+const SORT_BY_RATING = "http://localhost:8080/api/test/fetchProductsRatingDsc/";
 const SORT_ALPHABETICAL = "http://localhost:8080/api/test/fetchProductsNameAsc/";
 
 class FilterService 

@@ -115,7 +115,6 @@ class CoffeeMachineObjects extends Component {
                                     <a class="shopBtn" title="add to cart"><span class="icon-plus" onClick={() => this.addSelectedProductToCart(index)}></span></a>
                                     {item.discounted ? <><span class="pull-right" style={{ borderColor: "" }}> {item.discountedPrice}$ <s>{item.price}$</s></span><span id="notification" type="hidden" style={{ backgroundColor: "red", float: "right" }} class="badge bg-green">-%{(item.price - item.discountedPrice) / item.price * 100}</span></> : <span class="pull-right">{item.price}$</span>}
                                 </h4>
-                                {this.state.fetchRatingsResult[index].averageRating == 0 ? <p>No current ratings available.</p> : <p>Rating: {Number(this.state.fetchRatingsResult[index].averageRating).toFixed(2)} out of 5</p>}
                             </div>
                         </div>
                     </li>
