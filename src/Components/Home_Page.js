@@ -189,8 +189,13 @@ class Home_Page extends Component {
                 FilterService.SortProductsByRating().then(
                     response => {
                         console.log("ASDADS", response.data);
+                        let productsArray = [];
+                        response.data.forEach(element => {
+                          productsArray.push(element.product);  
+                        })
+                        console.log("ARRAY HERE", productsArray);
                         this.setState({
-                            coffeeMachineResults: response.data
+                            coffeeMachineResults: productsArray
                         });
                     },
                     error => {
