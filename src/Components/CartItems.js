@@ -3,6 +3,11 @@ import mrcoffee from '../assets/coffeemachinesforsale/mrcoffee.jpg'
 import nespresso from '../assets/coffeemachinesforsale/nespresso.jpg'
 import bialetti from '../assets/coffeemachinesforsale/bialetti.jpg'
 import cuisinart from '../assets/coffeemachinesforsale/cuisinart.jpg'
+import okka2 from '../assets/coffeemachinesforsale/okka2.jpg';
+import okka3 from '../assets/coffeemachinesforsale/okka3.jpg';
+import philips from '../assets/coffeemachinesforsale/philips.jpg';
+import philips2 from '../assets/coffeemachinesforsale/philips2.jpg';
+import okka from '../assets/coffeemachinesforsale/okka.jpg'
 import CartService from '../services/cart.service'
 import AuthService from '../services/auth.service'
 
@@ -60,6 +65,21 @@ class CartItems extends Component {
         }
         else if (pictureId === 4) {
             return bialetti;
+        }
+        else if(pictureId === 5) {
+            return okka;
+        }
+        else if(pictureId === 6) {
+            return okka2;
+        }
+        else if(pictureId === 7) {
+            return okka3;
+        }
+        else if(pictureId === 8) {
+            return philips;
+        }
+        else if(pictureId === 9) {
+            return philips;
         }
     }
 
@@ -169,14 +189,14 @@ class CartItems extends Component {
                                 <td>{item.product.description}</td>
                                 <td> {item.product.distributorInfo} </td>
                                 <td><span class="shopBtn"><span>{item.product.warrantyStatus}</span></span> </td>
-                                <td>{item.product.price}$</td>
+                                <td>{item.selectProductPrice}$</td>
                                 <td>
                                     <input class="span1" style={{ width: 34 }} placeholder="1" size="16" type="text" value={item.quantity} readOnly></input>
                                     <div class="input-append">
                                         <button class="btn btn-mini" type="button" onClick={() => this.decrementQuantityofProduct(item.product.id)}>-</button><button class="btn btn-mini" type="button" onClick={() => this.incrementQuantityofProduct(item.product.id)}> + </button><button class="btn btn-mini btn-danger" type="button" onClick={() => this.removeProductFromUsersCart(item.product.id)}><span class="icon-remove"></span></button>
                                     </div>
                                 </td>
-                                <td>{parseInt(item.quantity) * parseInt(item.product.price)}$</td>
+                                <td>{parseInt(item.quantity) * parseInt(item.selectProductPrice)}$</td>
                             </tr>
                         ))}
                     </tbody>

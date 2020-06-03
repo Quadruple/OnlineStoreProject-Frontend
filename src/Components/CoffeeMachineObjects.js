@@ -4,6 +4,10 @@ import nespresso from '../assets/coffeemachinesforsale/nespresso.jpg';
 import bialetti from '../assets/coffeemachinesforsale/bialetti.jpg';
 import cuisinart from '../assets/coffeemachinesforsale/cuisinart.jpg';
 import okka from '../assets/coffeemachinesforsale/okka.jpg';
+import okka2 from '../assets/coffeemachinesforsale/okka2.jpg';
+import okka3 from '../assets/coffeemachinesforsale/okka3.jpg';
+import philips from '../assets/coffeemachinesforsale/philips.jpg';
+import philips2 from '../assets/coffeemachinesforsale/philips2.jpg';
 import history from '../history';
 import cartService from '../services/cart.service';
 import authService from '../services/auth.service';
@@ -62,6 +66,18 @@ class CoffeeMachineObjects extends Component {
         }
         else if(pictureId === 5) {
             return okka;
+        }
+        else if(pictureId === 6) {
+            return okka2;
+        }
+        else if(pictureId === 7) {
+            return okka3;
+        }
+        else if(pictureId === 8) {
+            return philips;
+        }
+        else if(pictureId === 9) {
+            return philips;
         }
     }
 

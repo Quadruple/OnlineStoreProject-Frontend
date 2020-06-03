@@ -124,9 +124,6 @@ class SalesManager extends Component {
                                     <a style={{marginLeft: 5}} onClick={() => this.renderCorrespondingMenu(1)}> View All Purchases</a>
                                 </li>
                                 <li style={{borderStyle: "double"}}>
-                                    <a style={{marginLeft: 5}} >View Revenues in Between Dates</a>
-                                </li>
-                                <li style={{borderStyle: "double"}}>
                                     <a style={{marginLeft: 5}} onClick={() => this.renderCorrespondingMenu(3)}> Set Deliveries of Customers</a>
                                 </li>
                                 <li style={{borderStyle: "double"}}>
