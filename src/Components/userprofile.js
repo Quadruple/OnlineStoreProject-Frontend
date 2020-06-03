@@ -125,11 +125,11 @@ class UserPage extends Component {
                         <div class="well well-small">
                             <div align="left" ><b>Menu</b></div><br></br>
                             <ul class="nav nav-list" id="insertCategories">
-                                <li onClick={this.handleMenu1}>
-                                <a >My Profile</a>
+                                <li style={{borderStyle: "double"}} onClick={this.handleMenu1}>
+                                <a style={{marginLeft: 5}}>My Profile</a>
                                 </li><br></br>
-                                <li onClick={this.handleMenu2}>
-                                <a >My Orders </a>
+                                <li style={{borderStyle: "double"}} onClick={this.handleMenu2}>
+                                <a style={{marginLeft: 5}}>My Orders </a>
                                 </li><br></br>
                                 <li>
                                 </li><br></br>
